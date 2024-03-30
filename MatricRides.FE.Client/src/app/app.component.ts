@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { initFlowbite } from 'flowbite';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -10,7 +9,8 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [
     RouterOutlet,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    RouterLink
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -18,7 +18,5 @@ import { FooterComponent } from './components/footer/footer.component';
 export class AppComponent {
   title = 'MatricRides.FE.Client';
 
-  ngOnInit(): void {
-    initFlowbite()
-  }
+  
 }
