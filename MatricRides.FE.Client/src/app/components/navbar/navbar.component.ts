@@ -12,5 +12,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  showNavbar: boolean = false
 
+  showMobileMenu(): void {
+    this.showNavbar = !this.showNavbar
+  }
+
+  closeMobileMenu(): void {
+    this.showNavbar = false
+  }
 }
