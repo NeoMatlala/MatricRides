@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MatricRides.Domain\MatricRides.Domain.csproj" />
+    <ProjectReference Include="..\MatricRides.Infrastructure\MatricRides.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
