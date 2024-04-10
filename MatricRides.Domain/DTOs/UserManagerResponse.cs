@@ -17,5 +17,7 @@ namespace MatricRides.Domain.DTOs
         public DateTime? ExpireDate { get; set; }
 
         public string? UserId { get; set; }
+
+        public IEnumerable<string>? Roles { get; set; }
     }
 }
