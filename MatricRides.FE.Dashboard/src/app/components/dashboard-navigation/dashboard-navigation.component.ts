@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-navigation',
@@ -9,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class DashboardNavigationComponent {
 
+  constructor(private router: Router) {}
+
+  removeRole(): void {
+    localStorage.removeItem('role')
+    this.router.navigate(['/login'])
+  }
 }

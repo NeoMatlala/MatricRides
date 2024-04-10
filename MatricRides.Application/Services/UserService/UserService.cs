@@ -50,6 +50,11 @@ namespace MatricRides.Application.Services.UserService
 
             if (result.Succeeded)
             {
+
+                // assign host role
+                await _userManager.AddToRoleAsync(identityUser, "host");
+
+
                 return new UserManagerResponse
                 {
                     Message = "User created successfully",
@@ -92,10 +97,14 @@ namespace MatricRides.Application.Services.UserService
                 };
             }
 
+            // get role(s)
+            var roles = await _userManager.GetRolesAsync(user);
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, model.Email),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Role, string.Join(",", roles))
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
@@ -116,7 +125,8 @@ namespace MatricRides.Application.Services.UserService
                 Message = tokenAsString,
                 IsSuccess = true,
                 ExpireDate = token.ValidTo,
-                UserId = user.Id
+                UserId = user.Id,
+                Roles = roles
             };
         }
     }
