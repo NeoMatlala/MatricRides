@@ -28,6 +28,7 @@ export class LoginPageComponent {
 
       if(response.isSuccess) {
         localStorage.setItem('role', response.roles[0])
+        localStorage.setItem('email', this.user.email)
 
         this.router.navigate(['/dashboard'])
       }
