@@ -17,6 +17,20 @@ namespace MatricRides.WebAPI.Controllers
             _hostApprovalService = hostApprovalService;
         }
 
+        // check verification
+        [HttpGet("check-approval")]
+        public IActionResult CheckApproval(string email)
+        {
+            var result = _hostApprovalService.CheckHostApproval(email);
+
+            //if( !result.isVerified)
+            //{
+            //    return BadRequest(result);
+            //}
+
+            return Ok(result);
+        }
+
         // approve host
         [HttpPut("approve-host/{id}")]
         public IActionResult ApproveHost(int id)
