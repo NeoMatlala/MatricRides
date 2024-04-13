@@ -21,6 +21,44 @@ namespace MatricRides.Application.Services.HostApprovalService
             _db = db;
         }
 
+        public isApprovedResponse CheckHostApproval(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return new isApprovedResponse
+                {
+                    isVerified = false,
+                    Message = "Invalid email address"
+                };
+            }
+
+            var host = _db.Hosts.Where(e => e.Email == email).FirstOrDefault();
+
+            if (host == null)
+            {
+                return new isApprovedResponse
+                {
+                    isVerified = false,
+                    Message = "Email address not associated with any host"
+                };
+            }
+
+            if (host.IsApproved)
+            {
+                return new isApprovedResponse
+                {
+                    isVerified = true,
+                    Message = "You have been approved!"
+                };
+            }
+
+            return new isApprovedResponse
+            {
+                isVerified = false,
+                Message = "Host not approved yet, please check back in 24 hours."
+            };
+        }
+
         public HostApprovalResponse ApproveHost(int id)
         {
             if( id == 0 )

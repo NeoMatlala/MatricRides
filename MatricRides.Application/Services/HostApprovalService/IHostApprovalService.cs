@@ -17,5 +17,7 @@ namespace MatricRides.Application.Services.HostApprovalService
         HostApprovalResponse GetHostAwaitingApproval(int id);
 
         HostApprovalResponse ApproveHost(int id);
+
+        isApprovedResponse CheckHostApproval(string email);
     }
 }

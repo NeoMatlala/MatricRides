@@ -20,4 +20,9 @@ export class HostApplicationService {
   public approveHost(hostId: number): Observable<any> {
     return this.http.put(`https://localhost:7101/api/HostApproval/approve-host/${hostId}`, hostId)
   }
+
+  // verify email account
+  public checkApproval(email:string) : Observable<any> {
+    return this.http.get(`https://localhost:7101/api/HostApproval/check-approval?email=${email}`)
+  }
 }
