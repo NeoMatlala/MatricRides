@@ -25,4 +25,9 @@ export class HostApplicationService {
   public checkApproval(email:string) : Observable<any> {
     return this.http.get(`https://localhost:7101/api/HostApproval/check-approval?email=${email}`)
   }
+
+  // get host via email
+  public getHost(email:string): Observable<any> {
+    return this.http.get(`https://localhost:7101/api/Host/get-host/${email}`)
+  }
 }

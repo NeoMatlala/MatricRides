@@ -15,9 +15,10 @@ import { Route, Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class DashboardNavigationComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, ) {}
 
   role: any = " "
+  
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
@@ -25,6 +26,7 @@ export class DashboardNavigationComponent {
 
   removeRole(): void {
     localStorage.removeItem('role')
+    localStorage.removeItem('email')
     this.router.navigate(['/login'])
   }
 }

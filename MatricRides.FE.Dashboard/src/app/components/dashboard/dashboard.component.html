@@ -1,8 +1,7 @@
 <div class="">
     
     <div class="p-10">
-        <div class="flex justify-between items-center gap-10 w-full">
-        
+        <div class="flex justify-between items-center gap-10 w-full mb-16">
             <div class="p-5 bg-white w-1/5 flex flex-col justify-between" *ngIf="role === 'admin'">
                 <h5 class="text-5xl font-medium h-32">95</h5>
                 <div class="flex justify-between items-center">
@@ -16,7 +15,7 @@
                 </div>
             </div>
             <div class="p-5 bg-white w-1/5 flex flex-col justify-between">
-                <h5 class="text-5xl font-medium h-32">23</h5>
+                <h5 class="text-5xl font-medium h-32">{{host && host.cars ? host.cars.length : 0}}</h5>
                 <div class="flex justify-between items-center">
                     <p class="text-2xl font-medium">Cars</p>
                     <a class="flex justify-end items-center gap-2 hover:underline">
@@ -63,9 +62,67 @@
                     </a>
                 </div>
             </div>
-            
-        
         </div>
+
+        <!-- host cars table -->
+        <div class="p-5 bg-white rounded mb-10">
+            <h4 class="text-xl font-medium mb-10">Cars</h4>
+
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Car
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Year
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Doors
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Color
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                FuelType
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Hourly Rate
+                            </th>
+                            <th scope="col" class="px-6 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900">
+                                {{hostCar.make}} {{hostCar.model}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{hostCar.year}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{hostCar.doors}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{hostCar.color}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{hostCar.fuelType}}
+                            </td>
+                            <td class="px-6 py-4">
+                                R{{hostCar.hourlyRate}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <!-- <a (click)="reviewHost(host.hostId)" class="text-blue-600 hover:cursor-pointer hover:underline">Review</a> -->
+                                <a class="text-blue-600 hover:cursor-pointer hover:underline">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
     </div>
     
 </div>

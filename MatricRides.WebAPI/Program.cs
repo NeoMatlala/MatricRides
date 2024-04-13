@@ -1,4 +1,5 @@
 using MatricRides.Application.Services.HostApprovalService;
+using MatricRides.Application.Services.HostService;
 using MatricRides.Application.Services.UserService;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -57,6 +58,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "AllowLocalhost",
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IHostApprovalService, HostApprovalService>();
+builder.Services.AddScoped<IHostService, HostService>();
 
 var app = builder.Build();
 
