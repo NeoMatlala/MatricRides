@@ -1,0 +1,105 @@
+<div class="max-w-7xl mx-auto mb-10">
+    <p class="text-xl font-medium mb-5">Car details</p>
+
+    <form class="mx-auto border-t pt-5" (ngSubmit)="submitHostApplication()">
+        <div class="grid grid-cols-3 gap-5">
+            <div >
+                <label for="make" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Make</label>
+                <input [(ngModel)]="host.make" name="make" type="text" id="make" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="BMW" required />
+            </div>
+            <div >
+                <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
+                <input [(ngModel)]="host.model" type="text" name="model" id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="M240i" required />
+            </div>
+            <div >
+                <label for="year" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year</label>
+                <input [(ngModel)]="host.year" type="text" id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="2019" />
+            </div>
+            <div >
+                <label for="doors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Doors</label>
+                <input [(ngModel)]="host.doors" type="text" name="doors" id="doors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="2" />
+            </div>
+            <div >
+                <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                <input [(ngModel)]="host.color" type="text" id="color" name="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="White" />
+            </div>
+            <div >
+                <label for="fuel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fuel type</label>
+                <input [(ngModel)]="host.fuelType" type="text" id="fuel" name="fuleType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="Diesel" />
+            </div>
+            <!-- <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload image</label>
+                <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload image</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload image</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                
+            </div> -->
+        </div>
+        <div class="mt-5">
+            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+            <textarea [(ngModel)]="host.description" id="message" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your car description here..."></textarea>
+        </div>
+
+        <div class="my-10 border-b">
+            <p class="text-xl font-medium mb-2">Host details</p>
+            <p class="text-slate-500 font-light mb-5">
+                Once your application is approved, your <span class="font-normal">email</span>, and <span class="font-normal">password</span> will be used to login to the dashboard, where you'll be able to manage your profile and car(s)
+            </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-5">
+            <div >
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <input [(ngModel)]="host.name" type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Lepara" required />
+            </div>
+            <div >
+                <label for="surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Surname</label>
+                <input [(ngModel)]="host.surname" type="text" id="surname" name="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Malunga" required />
+            </div>
+            <div >
+                <label for="rate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Car hourly rate</label>
+                <input [(ngModel)]="host.hourlyRate" type="text" id="rate" name="rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="2500" />
+            </div>
+            <div >
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input [(ngModel)]="host.email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="lp@gmail.com" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload profile image</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+            </div>
+        </div>
+        
+        <div class="flex justify-end">
+            <button type="submit" class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit Application</button>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- success modal -->
+<div id="success-modal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            
+            <div class="p-4 md:p-5 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{{successModalMessage}}</h3>
+                <button (click)="closeSuccessModal()" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                    Thank you
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

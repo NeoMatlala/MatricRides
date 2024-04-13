@@ -69,9 +69,12 @@
                 <a href="" class="underline underline-offset-4">Become a Host</a>
             </li>
             <li>
-                <a href="" class="text-white bg-[#1A1E23] px-7 py-2.5">Login</a>
+                <button (click)="showLoginModal()" class="text-white bg-[#1A1E23] px-7 py-2.5">Login</button>
             </li>
         </ul>
     </div>
   </nav>
   
+
+    <!-- Login modal -->
+    <app-login-modal></app-login-modal>

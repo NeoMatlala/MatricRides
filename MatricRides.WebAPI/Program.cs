@@ -1,3 +1,4 @@
+using MatricRides.Application.Services.HostApprovalService;
 using MatricRides.Application.Services.UserService;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,11 +51,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options => options.AddPolicy(name: "AllowLocalhost",
     policy =>
     {
-        policy.WithOrigins("http://localhost:5000").WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:5000").WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
     }
     ));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IHostApprovalService, HostApprovalService>();
 
 var app = builder.Build();
 

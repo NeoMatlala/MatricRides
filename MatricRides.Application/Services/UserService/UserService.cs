@@ -52,7 +52,7 @@ namespace MatricRides.Application.Services.UserService
             {
 
                 // assign host role
-                await _userManager.AddToRoleAsync(identityUser, "host");
+                await _userManager.AddToRoleAsync(identityUser, model.Role);
 
 
                 return new UserManagerResponse
