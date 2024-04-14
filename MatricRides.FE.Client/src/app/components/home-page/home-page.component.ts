@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FaqComponent } from '../faq/faq.component';
 import { ReviewsComponent } from '../reviews/reviews.component';
 import { initFlowbite } from 'flowbite';
+import { RouterLink } from '@angular/router';
 declare var Datepicker: any;
 
 @Component({
@@ -9,7 +10,8 @@ declare var Datepicker: any;
   standalone: true,
   imports: [
     FaqComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    RouterLink
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'

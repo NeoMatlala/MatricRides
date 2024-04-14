@@ -1,4 +1,5 @@
 ﻿using MatricRides.Domain.DTOs;
+using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,21 @@ namespace MatricRides.Application.Services.HostService
         public HostService(ApplicationDbContext db)
         {
             _db = db;
+        }
+
+        // get hosts
+        public List<Host> GetHosts()
+        {
+            var hosts = _db.Hosts.Include(c => c.Cars).Where(x => x.IsApproved == true).ToList();
+
+            return hosts;
+        }
+
+        public Host GetCar(int id)
+        {
+            var car = _db.Hosts.Include(c => c.Cars).FirstOrDefault(x => x.HostId == id);
+
+            return car;
         }
 
         // get host
