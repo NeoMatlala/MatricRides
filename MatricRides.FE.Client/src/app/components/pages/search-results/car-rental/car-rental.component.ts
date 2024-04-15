@@ -27,8 +27,6 @@ export class CarRentalComponent {
     try {
       this._carService.getCar(this.hostId, this.make, this.year).subscribe((response:any) => {
         this.host = response
-
-        console.log(this.host)
       })
     } catch (error) {
       console.log("Error fetching car:", error)

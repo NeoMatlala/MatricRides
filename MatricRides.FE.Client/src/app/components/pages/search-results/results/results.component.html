@@ -34,6 +34,7 @@
         </div>
 
         <!-- car cards -->
+        <app-loading-skeleton *ngIf="hostObj.length == 0"></app-loading-skeleton>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-10">
             <a (click)="seeCar(host.cars[0].make, host.hostId, host.cars[0].year)" *ngFor="let host of hostObj" class="max-w-sm bg-white border border-gray-200">
                 <div class="bg-slate-400 h-64">
