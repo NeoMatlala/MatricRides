@@ -3,6 +3,7 @@ import { ResultsPageSearchComponent } from '../results-page-search/results-page-
 import { CarService } from '../../../../services/cars/car.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { LoadingSkeletonComponent } from '../../../loading-skeleton/loading-skeleton.component';
 
 @Component({
   selector: 'app-results',
@@ -10,7 +11,8 @@ import { Router, RouterLink } from '@angular/router';
   imports: [
     ResultsPageSearchComponent,
     CommonModule,
-    RouterLink
+    RouterLink,
+    LoadingSkeletonComponent
   ],
   templateUrl: './results.component.html',
   styleUrl: './results.component.css'
@@ -26,7 +28,6 @@ export class ResultsComponent {
       this.carService.getAllCars().subscribe((response: any) =>{
        // this.carsArray = response.map((obj: any)=> obj.cars).flat()
        this.hostObj = response
-        console.log(this.hostObj)
       })
     } catch (error) {
       console.log("Error getting cars:", error)
