@@ -56,6 +56,12 @@
             <p class="text-slate-400">Description</p>
             <p class="mt-2 w-2/3">{{hostCar.descripion}}</p>
         </div>
+        
+        <div  class="mt-10 flex justify-start  items-center gap-5">
+            <div *ngFor="let src of imageSrc" class="h-60 w-60">
+                <img [src]="src" alt="Image" class="h-full w-full object-cover">
+            </div>
+        </div>
 
         <div class="flex justify-end items-center gap-2">
             <button (click)="ApproveHost(host.hostId)" class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve Host Application</button>

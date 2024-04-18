@@ -1,7 +1,7 @@
 <div class="max-w-7xl mx-auto my-10">
     <p class="text-xl font-medium mb-5">Car details</p>
 
-    <form class="mx-auto border-t pt-5" (ngSubmit)="submitHostApplication()">
+    <form class="mx-auto border-t pt-5" (ngSubmit)="submitHostApplication()" enctype="multipart/form-data">
         <div class="grid grid-cols-3 gap-5">
             <div >
                 <label for="make" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Make</label>
@@ -27,21 +27,21 @@
                 <label for="fuel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fuel type</label>
                 <input [(ngModel)]="host.fuelType" type="text" id="fuel" name="fuleType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="Diesel" />
             </div>
-            <!-- <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload image</label>
-                <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image1">Upload image</label>
+                <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image1_help" name="image1" (change)="onFileSelected($event, 'image1')" accept="image/*" id="image1" type="file">
                 
             </div>
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload image</label>
-                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image2">Upload image</label>
+                <input name="image2" (change)="onFileSelected($event, 'image2')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image2_help" id="image2" type="file">
                 
             </div>
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload image</label>
-                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image3">Upload image</label>
+                <input name="image3" (change)="onFileSelected($event, 'image3')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image3_help" id="image3" type="file">
                 
-            </div> -->
+            </div>
         </div>
         <div class="mt-5">
             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
@@ -72,10 +72,10 @@
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                 <input [(ngModel)]="host.email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="lp@gmail.com" required />
             </div>
-            <div>
+            <!-- <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload profile image</label>
                 <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-            </div>
+            </div> -->
         </div>
         
         <div class="flex justify-end">

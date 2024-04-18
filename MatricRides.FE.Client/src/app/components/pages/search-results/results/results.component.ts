@@ -21,18 +21,31 @@ export class ResultsComponent {
 
   hostObj: any = []
 
+
   constructor(private carService: CarService, private router: Router) {}
 
   ngOnInit(): void {
     try {
       this.carService.getAllCars().subscribe((response: any) =>{
-       // this.carsArray = response.map((obj: any)=> obj.cars).flat()
        this.hostObj = response
+
+        response.forEach((item:any) => {
+
+          if(item.cars[0].images.length) {
+            console.log(item.cars[0])
+          }
+          
+          
+        })
+
+       //console.log(response)
       })
     } catch (error) {
       console.log("Error getting cars:", error)
     }
   }
+
+  //processImages
 
   seeCar(make:string, id: number, year: number){
     this.router.navigate(["/car-rental", make, id, year])

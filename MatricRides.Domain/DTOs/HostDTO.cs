@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
+using MatricRides.Domain.Models;
 using System.Threading.Tasks;
 
 namespace MatricRides.Domain.DTOs
 {
     public class HostDTO
     {
+        // host details
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+
         // car details
         public string Make { get; set; }
         public string Year { get; set; }
@@ -18,9 +25,9 @@ namespace MatricRides.Domain.DTOs
         public string Description { get; set; }
         public string HourlyRate { get; set; }
 
-        // host details
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
+        
+
+        //[JsonIgnore]
+        //public List<Image> CarImages { get; set; }
     }
 }
