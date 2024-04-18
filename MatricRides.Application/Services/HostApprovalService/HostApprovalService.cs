@@ -156,7 +156,7 @@ namespace MatricRides.Application.Services.HostApprovalService
             return hosts;
         }
 
-        public HostApprovalResponse HostApproval(HostDTO hostDTO, List<IFormFile> carImages)
+        public HostApprovalResponse HostApproval(HostDTO hostDTO, List<IFormFile> carImages, IFormFile? profilePicture)
         {
             try
             {
@@ -166,6 +166,13 @@ namespace MatricRides.Application.Services.HostApprovalService
                     Surname = hostDTO.Surname,
                     Email = hostDTO.Email
                 };
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    profilePicture.CopyTo(stream);
+
+                    host.ProfilePicture = stream.ToArray();
+                }
 
                 _db.Hosts.Add(host);
                 //await _db.SaveChangesAsync();

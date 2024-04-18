@@ -19,6 +19,7 @@ export class CarRentalComponent {
   make: string = ''
   year: number = 0
   imageSrc: string[] = []
+  profilePic: string = ''
 
   slides: any[] = new Array(3).fill({src: ''});
 
@@ -51,6 +52,8 @@ export class CarRentalComponent {
       this._carService.getCar(this.hostId, this.make, this.year).subscribe((response:any) => {
         this.host = response
         this.processImages(this.host.cars[0].images)
+
+        this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
 
         //console.log(this.imageSrc)
         //this.slides = this.imageSrc.map(src => ({ src }));

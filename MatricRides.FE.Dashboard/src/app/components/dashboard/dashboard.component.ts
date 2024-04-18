@@ -16,6 +16,7 @@ export class DashboardComponent {
   hostEmail: any = ''
   host: any = {}
   hostCar: any = {}
+  profilePic: string = ''
 
   constructor(private _hostService: HostApplicationService, private router: Router) {}
 
@@ -28,7 +29,9 @@ export class DashboardComponent {
         
         this.host = response.hostObj
         this.hostCar = response.hostObj.cars[0]
-        console.log( this.hostCar)
+        console.log( this.host)
+
+        this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
       })
     } catch (error) {
       console.log("Error getting service: ", error)

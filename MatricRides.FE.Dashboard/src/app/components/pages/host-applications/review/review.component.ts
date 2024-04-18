@@ -17,6 +17,7 @@ export class ReviewComponent {
   
   host: any= {}
   hostCar: any = []
+  profilePic: string = ''
 
   constructor(private _hostApplicationService: HostApplicationService, private route: Router, private router: ActivatedRoute) {
     this.router.params.subscribe(params => {
@@ -34,6 +35,9 @@ export class ReviewComponent {
         this.host = response.hostObj 
         this.hostCar = response.hostObj.cars[0]
         this.processImages(response.hostObj.cars[0].images)
+        
+
+        this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
       })
     } catch (error) {
       console.log("error getting host awaiting approval: ", error)

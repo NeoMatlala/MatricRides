@@ -26,6 +26,7 @@ export class HostApplicationFormComponent {
     name: '',
     surname: '',
     email: '',
+    profilePicture: '',
     carImages: []
   }
 
@@ -59,6 +60,8 @@ export class HostApplicationFormComponent {
     } else if (imageNumber === 'image3') {
       this.image3 = file;
       this.host.carImages.push(this.image3)
+    } else if (imageNumber === 'profileImage') {
+      this.host.profilePicture = file;
     }
   }
 
@@ -78,7 +81,7 @@ export class HostApplicationFormComponent {
       // }
       
       // set rest of form
-      //formData.append('carImages', this.host.carImages)
+      formData.append('profilePicture', this.host.profilePicture)
       formData.append('name', this.host.name);
       formData.append('make', this.host.make);
       formData.append('email', this.host.email);

@@ -70,14 +70,14 @@ namespace MatricRides.WebAPI.Controllers
 
         // create host application
         [HttpPost("submit-host-application")]
-        public IActionResult SubmitHostApplication([FromForm] HostDTO hostDTO, List<IFormFile> carImages)
+        public IActionResult SubmitHostApplication([FromForm] HostDTO hostDTO, List<IFormFile> carImages, IFormFile? profilePicture)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = _hostApprovalService.HostApproval(hostDTO, carImages);
+            var result = _hostApprovalService.HostApproval(hostDTO, carImages, profilePicture);
 
             if(!result.IsSuccess)
             {

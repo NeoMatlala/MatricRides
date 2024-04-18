@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using MatricRides.Domain.Models;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MatricRides.Domain.DTOs
 {
@@ -14,6 +15,9 @@ namespace MatricRides.Domain.DTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
+
+        [Column(TypeName = "Profile Picture")]
+        public byte[]? ProfilePicture { get; set; }
 
         // car details
         public string Make { get; set; }
