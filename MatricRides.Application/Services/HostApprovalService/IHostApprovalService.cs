@@ -11,7 +11,7 @@ namespace MatricRides.Application.Services.HostApprovalService
 {
     public interface IHostApprovalService
     {
-        HostApprovalResponse HostApproval(HostDTO hostDTO, List<IFormFile> carImages);
+        HostApprovalResponse HostApproval(HostDTO hostDTO, List<IFormFile> carImages, IFormFile? profilePicture);
 
         List<Host> GetHostsAwaitingApproval();
 

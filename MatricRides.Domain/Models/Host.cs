@@ -19,8 +19,8 @@ namespace MatricRides.Domain.Models
 
         public bool IsApproved { get; set; } = false;
 
-        //[Column(TypeName = "Image")]
-        //public byte[] ProfilePicture { get; set; }
+        [Column(TypeName = "Image")]
+        public byte[] ProfilePicture { get; set; }
 
         public List<Car> Cars { get; set; }
     }
