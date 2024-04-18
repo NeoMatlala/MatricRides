@@ -1,6 +1,7 @@
 ﻿using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -116,7 +117,7 @@ namespace MatricRides.Application.Services.HostApprovalService
 
             try
             {
-                var host = _db.Hosts.Include(c => c.Cars).Where(x => x.IsApproved == false).FirstOrDefault(h => h.HostId == id);
+                var host = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).Where(x => x.IsApproved == false).FirstOrDefault(h => h.HostId == id);
 
                 if (host == null)
                 {
@@ -148,41 +149,66 @@ namespace MatricRides.Application.Services.HostApprovalService
         {
             var hosts = _db.Hosts
                         .Include(c => c.Cars)
+                        .ThenInclude(i => i.Images)
                         .Where(x => x.IsApproved == false)
                         .ToList();
 
             return hosts;
         }
 
-        public async Task<HostApprovalResponse> HostApproval(HostDTO model)
+        public HostApprovalResponse HostApproval(HostDTO hostDTO, List<IFormFile> carImages)
         {
             try
             {
                 var host = new Host
                 {
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    Email = model.Email
+                    Name = hostDTO.Name,
+                    Surname = hostDTO.Surname,
+                    Email = hostDTO.Email
                 };
 
                 _db.Hosts.Add(host);
-                await _db.SaveChangesAsync();
+                //await _db.SaveChangesAsync();
+                _db.SaveChanges();
 
                 var car = new Car
                 {
                     HostId = host.HostId,
-                    Make = model.Make,
-                    Model = model.Model,
-                    Year = model.Year,
-                    HourlyRate = model.HourlyRate,
-                    Color = model.Color,
-                    Doors = model.Doors,
-                    FuelType = model.FuelType,
-                    Descripion = model.Description
+                    Make = hostDTO.Make,
+                    Model = hostDTO.Model,
+                    Year = hostDTO.Year,
+                    HourlyRate = hostDTO.HourlyRate,
+                    Color = hostDTO.Color,
+                    Doors = hostDTO.Doors,
+                    FuelType = hostDTO.FuelType,
+                    Descripion = hostDTO.Description
                 };
 
                 _db.Cars.Add(car);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
+                //await _db.SaveChangesAsync();
+
+                // add images now that iHave CarId
+                if (carImages != null && carImages.Any())
+                {
+                    foreach(var carImage in carImages)
+                    {
+                        using(MemoryStream stream = new MemoryStream())
+                        {
+                            carImage.CopyTo(stream);
+
+                            var imageEntity = new Image
+                            {
+                                CarId = car.CarId,
+                                CarImage = stream.ToArray()
+                            };
+
+                            _db.Images.Add(imageEntity);
+                            //await _db.SaveChangesAsync();
+                            _db.SaveChanges();
+                        }
+                    }
+                }
 
                 return new HostApprovalResponse
                 {

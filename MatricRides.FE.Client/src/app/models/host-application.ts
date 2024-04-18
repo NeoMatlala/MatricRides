@@ -10,4 +10,5 @@ export class HostApplication{
     name: string = ''
     surname: string = ''
     email: string = ''
+    carImages: any = []
   }

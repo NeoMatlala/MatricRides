@@ -22,14 +22,14 @@ namespace MatricRides.Application.Services.HostService
         // get hosts
         public List<Host> GetHosts()
         {
-            var hosts = _db.Hosts.Include(c => c.Cars).Where(x => x.IsApproved == true).ToList();
+            var hosts = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).Where(x => x.IsApproved == true).ToList();
 
             return hosts;
         }
 
         public Host GetCar(int id)
         {
-            var car = _db.Hosts.Include(c => c.Cars).FirstOrDefault(x => x.HostId == id);
+            var car = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).FirstOrDefault(x => x.HostId == id);
 
             return car;
         }
@@ -46,7 +46,7 @@ namespace MatricRides.Application.Services.HostService
                 };
             }
 
-            var host = _db.Hosts.Include(c => c.Cars).FirstOrDefault(c => c.Email == email);
+            var host = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images ).FirstOrDefault(c => c.Email == email);
 
             if (host == null)
             {

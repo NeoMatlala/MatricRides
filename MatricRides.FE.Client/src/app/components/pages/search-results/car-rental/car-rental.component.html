@@ -1,8 +1,60 @@
 <div class="max-w-6xl mx-auto my-10">
-    <div class="w-full h-[50vh] bg-slate-400 rounded-lg">
+    <!-- <div class="w-full h-[50vh] bg-slate-400 rounded-lg">
         <img class="w-full object-cover h-full rounded-lg" src="../assets/car1.jpg" alt="" />    
-    </div>
-    <div class="flex justify-between items-start gap-6 mt-10">
+    </div> -->
+    
+    <c-carousel *ngIf="imageSrc" [interval]="0" class="relative">
+      <c-carousel-inner>
+        <!-- <c-carousel-item *ngFor="let slide of slides">
+          <img
+            [src]="slide.src"
+            alt="{{slide.title}}"
+            class="block w-full h-[50vh] object-cover"
+            loading="lazy"
+          />
+        </c-carousel-item> -->
+        <c-carousel-item >
+          <img
+            src="{{imageSrc[0]}}"
+            class="block w-full h-[60vh] object-cover"
+            loading="lazy"
+          />
+        </c-carousel-item>
+        <c-carousel-item >
+          <img
+            src="{{imageSrc[1]}}"
+            class="block w-full h-[60vh] object-cover"
+            loading="lazy"
+          />
+        </c-carousel-item>
+        <c-carousel-item >
+          <img
+            src="{{imageSrc[2]}}"
+            class="block w-full h-[60vh] object-cover"
+            loading="lazy"
+          />
+        </c-carousel-item>
+      </c-carousel-inner>
+      <div class="flex justify-between items-center absolute top-1/2 w-full px-5">
+        <c-carousel-control [routerLink] class="bg-slate-100 p-2 rounded-full" direction="prev">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>        
+        </c-carousel-control>
+        <c-carousel-control [routerLink] class="bg-slate-100 p-2 rounded-full" direction="next">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>        
+        </c-carousel-control>
+      </div>
+      
+    </c-carousel>
+    
+    
+
+
+
+    <div class="flex justify-between items-start gap-6 mt-10" *ngIf="host && host.cars && host.cars.length > 0">
         <div class="w-2/3">
             <h1 class="text-5xl font-medium">{{host.cars[0].year}} {{host.cars[0].make}} {{host.cars[0].model}}</h1>
 

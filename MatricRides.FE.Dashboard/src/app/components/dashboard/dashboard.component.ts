@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { HostApplicationService } from '../../services/host-applications/host-application.service';
+import { Router, RouterLink } from '@angular/router';
+import { ViewCarComponent } from '../pages/car/view-car/view-car.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, ViewCarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -15,7 +17,7 @@ export class DashboardComponent {
   host: any = {}
   hostCar: any = {}
 
-  constructor(private _hostService: HostApplicationService) {}
+  constructor(private _hostService: HostApplicationService, private router: Router) {}
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
@@ -26,12 +28,14 @@ export class DashboardComponent {
         
         this.host = response.hostObj
         this.hostCar = response.hostObj.cars[0]
-        console.log( this.host)
-
-        //console.log(this.host.cars.length)
+        console.log( this.hostCar)
       })
     } catch (error) {
       console.log("Error getting service: ", error)
     }
+  }
+
+  viewCar(make:string) {
+    this.router.navigate(["/view-car", make], {queryParams: {data: JSON.stringify(this.hostCar)}})
   }
 }

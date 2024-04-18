@@ -37,8 +37,8 @@
         <app-loading-skeleton *ngIf="hostObj.length == 0"></app-loading-skeleton>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-10">
             <a (click)="seeCar(host.cars[0].make, host.hostId, host.cars[0].year)" *ngFor="let host of hostObj" class="max-w-sm bg-white border border-gray-200">
-                <div class="bg-slate-400 h-64">
-                    <img class="w-full object-cover h-full" src="../assets/car1.jpg" alt="" />
+                <div class="bg-slate-100 h-64">
+                    <img *ngIf="host.cars[0].images.length > 0" class="w-full object-cover h-full" [src]="'data:image/jpeg;base64,' + host.cars[0].images[0].carImage" alt="" />
                 </div>
                 <div class="p-4">
                     <a>

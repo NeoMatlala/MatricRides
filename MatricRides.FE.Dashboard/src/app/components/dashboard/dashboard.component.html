@@ -114,8 +114,8 @@
                                 R{{hostCar.hourlyRate}}
                             </td>
                             <td class="px-6 py-4">
-                                <!-- <a (click)="reviewHost(host.hostId)" class="text-blue-600 hover:cursor-pointer hover:underline">Review</a> -->
-                                <a class="text-blue-600 hover:cursor-pointer hover:underline">View</a>
+                                <!-- <a routerLink="/view-car"  class="text-blue-600 hover:cursor-pointer hover:underline">Review</a> -->
+                                <a (click)="viewCar(hostCar.make)" class="text-blue-600 hover:cursor-pointer hover:underline">View</a>
                             </td>
                         </tr>
                     </tbody>
