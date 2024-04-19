@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { HostApplicationService } from '../../../services/host-applications/host-application.service';
 import { CommonModule } from '@angular/common';
 import { CreateHostUser } from '../../../models/create-host';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'app-create-host-account',
@@ -18,6 +19,9 @@ export class CreateHostAccountComponent {
   showError: boolean = false
   alertMessage: string = ''
   @ViewChild('emailInput') emailInput: any;
+  successModalElement: HTMLElement | null = null;
+
+  successModalMessage: string = "Your host account has successfully been created";
 
   hostUser: CreateHostUser = {
     email: '',
@@ -26,7 +30,11 @@ export class CreateHostAccountComponent {
     role: 'host'
   }
 
-  constructor(private _hostService: HostApplicationService, private router: Router, private _userService:UserService) {}
+  constructor(private _hostService: HostApplicationService, private elementRef: ElementRef, private router: Router, private _userService:UserService) {}
+
+  ngAfterViewInit(): void {
+    this.successModalElement = this.elementRef.nativeElement.querySelector('#success-modal')
+  }
 
   checkApproval(email:string): void {
     try {
@@ -57,14 +65,22 @@ export class CreateHostAccountComponent {
         this._userService.createHost(this.hostUser).subscribe((response: any) => {
           console.log(response)
           
-          if(response.isSuccess) [
-            this.router.navigate(["/login"])
-          ]
+          if(response.isSuccess) {
+            const successModal = new Modal(this.successModalElement)
+            successModal.show()
+          }
+          
         })
       } catch (error) {
         console.log("Error creating host: ", error)
       }
     }
     
+  }
+
+  closeSuccessModal(): void {
+    const successModal = new Modal(this.successModalElement)
+    successModal.hide()
+    this.router.navigate(['/login'])
   }
 }

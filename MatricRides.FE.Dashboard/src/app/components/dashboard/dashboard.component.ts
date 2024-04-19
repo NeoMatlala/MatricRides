@@ -3,11 +3,25 @@ import { Component } from '@angular/core';
 import { HostApplicationService } from '../../services/host-applications/host-application.service';
 import { Router, RouterLink } from '@angular/router';
 import { ViewCarComponent } from '../pages/car/view-car/view-car.component';
+import { HostApplicationCardComponent } from './cards/host-application-card/host-application-card.component';
+import { AdminCarsCardComponent } from './cards/admin-cars-card/admin-cars-card.component';
+import { LandingComponent } from '../pages/admin-cars/landing/landing.component';
+import { LandingComponent as carTable} from '../pages/users/landing/landing.component';
+import { UsersCardComponent } from './cards/users-card/users-card.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, ViewCarComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    ViewCarComponent,
+    HostApplicationCardComponent,
+    AdminCarsCardComponent,
+    LandingComponent,
+    UsersCardComponent,
+    carTable
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

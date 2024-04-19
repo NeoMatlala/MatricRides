@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { loginUser } from '../models/login-user';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CreateHostUser } from '../models/create-host';
 
 @Injectable({
@@ -19,5 +19,15 @@ export class UserService {
   // create host account
   public createHost(user:CreateHostUser): Observable<CreateHostUser>{
     return this.http.post<CreateHostUser>("https://localhost:7101/api/Auth/register", user)
+  }
+
+  public GetUsers(): Observable<any> {
+    return this.http.get("https://localhost:7101/api/User/get-users")
+  }
+
+  public GetUserCount(): Observable<any> {
+    return this.http.get<any[]>("https://localhost:7101/api/User/get-users").pipe(
+      map((cars:any) => cars.length)
+    )
   }
 }

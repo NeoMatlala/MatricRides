@@ -1,6 +1,7 @@
 ﻿using MatricRides.Domain.DTOs;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -17,11 +18,32 @@ namespace MatricRides.Application.Services.UserService
     {
         private IConfiguration _configuration;
         private UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserService(IConfiguration configuration, UserManager<IdentityUser> userManager)
+        public UserService(IConfiguration configuration, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _configuration = configuration;
             _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+        public async Task<List<UserWithRoles>> GetALlUsersWithRolesAsync()
+        {
+            var usersWithRoles = new List<UserWithRoles>();
+
+            var users = await _userManager.Users.Where(x => x.UserName != "admin@mrides.com").ToListAsync();
+
+            foreach(var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                usersWithRoles.Add(new UserWithRoles
+                {
+                    Email = user.Email,
+                    Role = roles.FirstOrDefault()
+                });
+            }
+
+            return usersWithRoles;
         }
 
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterDTO model)
