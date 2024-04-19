@@ -7,6 +7,10 @@ import { LandingComponent } from './components/pages/host-applications/landing/l
 import { ReviewComponent } from './components/pages/host-applications/review/review.component';
 import { CreateHostAccountComponent } from './components/forms/create-host-account/create-host-account.component';
 import { ViewCarComponent } from './components/pages/car/view-car/view-car.component';
+import { AdminCarsCardComponent } from './components/dashboard/cards/admin-cars-card/admin-cars-card.component';
+import { LandingComponent as AdminCarsLanding } from './components/pages/admin-cars/landing/landing.component';
+import { ViewCarComponent as AdminViewCar } from './components/pages/admin-cars/view-car/view-car.component';
+import { LandingComponent as AdminUsersLanding } from './components/pages/users/landing/landing.component';
 
 export const routes: Routes = [
     {path: '', redirectTo:'/login', pathMatch: 'full'},
@@ -26,7 +30,10 @@ export const routes: Routes = [
             {path: 'host-applications', component: LandingComponent},
             {path: 'review-application/:id', component: ReviewComponent},
             {path: 'review-application/:id', component: ReviewComponent},
-            {path: 'view-car/:make', component: ViewCarComponent}
+            {path: 'view-car/:make', component: ViewCarComponent},
+            {path: 'cars', component: AdminCarsLanding},
+            {path: 'view-car-details/:id', component: AdminViewCar},
+            {path: 'users', component: AdminUsersLanding},
         ]
     }
 ];

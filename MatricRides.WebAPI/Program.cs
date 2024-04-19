@@ -1,3 +1,4 @@
+using MatricRides.Application.Services.CarsService;
 using MatricRides.Application.Services.HostApprovalService;
 using MatricRides.Application.Services.HostService;
 using MatricRides.Application.Services.UserService;
@@ -59,6 +60,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "AllowLocalhost",
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IHostApprovalService, HostApprovalService>();
 builder.Services.AddScoped<IHostService, HostService>();
+builder.Services.AddScoped<ICarService, CarService>();
 
 var app = builder.Build();
 

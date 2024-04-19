@@ -11,5 +11,6 @@ namespace MatricRides.Application.Services.UserService
     {
         Task<UserManagerResponse> RegisterUserAsync(RegisterDTO model);
         Task<UserManagerResponse> LoginUserAsync(LoginDTO model);
+        Task<List<UserWithRoles>> GetALlUsersWithRolesAsync();
     }
 }

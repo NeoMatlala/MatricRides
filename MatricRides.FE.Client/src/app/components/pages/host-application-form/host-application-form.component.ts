@@ -68,19 +68,7 @@ export class HostApplicationFormComponent {
   submitHostApplication() {
     try {
       const formData = new FormData()
-
-      // set images
-      // if(this.image1) {
-      //   formData.append('carImages', this.image1);
-      // }
-      // if(this.image2) {
-      //   formData.append('carImages', this.image2);
-      // }
-      // if(this.image3) {
-      //   formData.append('carImages', this.image3);
-      // }
       
-      // set rest of form
       formData.append('profilePicture', this.host.profilePicture)
       formData.append('name', this.host.name);
       formData.append('make', this.host.make);
@@ -101,35 +89,20 @@ export class HostApplicationFormComponent {
         'Content-Type': 'multipart/form-data'
       })
 
-      //console.log(formData)
-
-      // this._submitHostService.fsubmitHostApplication(formData).subscribe((response:any) => {
-      //   console.log(response)
-
-        
-
-      //   if (response.isSuccess) {
-      //     // open success modal, with message as message on modal
-      //     this.successModalMessage = response.message
-
-      //     const successModal = new Modal(this.successModalElement)
-      //     successModal.show()
-      //   }
-      // })
+      
 
       this.http.post("https://localhost:7101/api/HostApproval/submit-host-application", formData).subscribe((response:any) => {
         console.log(response)
 
         if (response.isSuccess) {
-              // open success modal, with message as message on modal
-              this.successModalMessage = response.message
-    
-              const successModal = new Modal(this.successModalElement)
-              successModal.show()
-            }
+            // open success modal, with message as message on modal
+            this.successModalMessage = response.message
+  
+            const successModal = new Modal(this.successModalElement)
+            successModal.show()
+          }
       })
 
-      //console.log(this.host.carImages)
       
     } catch (error) {
       console.log("error submiting host application: ", error)

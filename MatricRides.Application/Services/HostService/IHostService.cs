@@ -14,5 +14,7 @@ namespace MatricRides.Application.Services.HostService
         List<Host> GetHosts();
 
         Host GetCar(int id);
+
+        HostApprovalResponse GetHostViaID(int id);
     }
 }

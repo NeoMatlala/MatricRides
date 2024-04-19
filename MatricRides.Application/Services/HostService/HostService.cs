@@ -34,7 +34,7 @@ namespace MatricRides.Application.Services.HostService
             return car;
         }
 
-        // get host
+        // get host via email
         public HostApprovalResponse GetHost(string email)
         {
             if(string.IsNullOrEmpty(email))
@@ -53,6 +53,37 @@ namespace MatricRides.Application.Services.HostService
                 return new HostApprovalResponse
                 {
                     Message = "No host is assocciated with that email address",
+                    IsSuccess = false
+                };
+            }
+
+            return new HostApprovalResponse
+            {
+                Message = "Host found",
+                IsSuccess = true,
+                hostObj = host
+            };
+        }
+
+        // get host via id
+        public HostApprovalResponse GetHostViaID(int id)
+        {
+            if (id == 0)
+            {
+                return new HostApprovalResponse
+                {
+                    Message = "Invalid ID",
+                    IsSuccess = false
+                };
+            }
+
+            var host = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).FirstOrDefault(c => c.HostId == id);
+
+            if (host == null)
+            {
+                return new HostApprovalResponse
+                {
+                    Message = "No host is assocciated with that id",
                     IsSuccess = false
                 };
             }

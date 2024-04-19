@@ -1,46 +1,19 @@
 <div class="">
+    <!-- todo: add this profile pic vibe on layout -->
     <div class="px-10 py-5 bg-white flex justify-end items-center">
         <img class="w-14 h-14 rounded-full object-cover" [src]="profilePic" alt="Rounded avatar">
     </div>
     <div class="p-10">
-        <div class="flex justify-between items-center gap-10 w-full mb-16">
-            <div class="p-5 bg-white w-1/5 flex flex-col justify-between" *ngIf="role === 'admin'">
-                <h5 class="text-5xl font-medium h-32">95</h5>
-                <div class="flex justify-between items-center">
-                    <p class="text-2xl font-medium">Users</p>
-                    <a class="flex justify-end items-center gap-2 hover:underline">
-                        View
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right w-3" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="p-5 bg-white w-1/5 flex flex-col justify-between">
-                <h5 class="text-5xl font-medium h-32">{{host && host.cars ? host.cars.length : 0}}</h5>
-                <div class="flex justify-between items-center">
-                    <p class="text-2xl font-medium">Cars</p>
-                    <a class="flex justify-end items-center gap-2 hover:underline">
-                        View
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right w-3" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="p-5 bg-white w-1/5 flex flex-col justify-between">
-                <h5 class="text-5xl font-medium h-32">R23,452</h5>
-                <div class="flex justify-between items-center">
-                    <p class="text-2xl font-medium">Revenue</p>
-                    <a class="flex justify-end items-center gap-2 hover:underline">
-                        View
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right w-3" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="p-5 bg-white w-1/5 flex flex-col justify-between">
+        <!-- admin cards -->
+        <div *ngIf="role === 'admin'" class="grid 2xl:grid-cols-5 gap-10 w-full mb-16">
+            <app-users-card></app-users-card>
+            <app-host-application-card></app-host-application-card>
+            <app-admin-cars-card></app-admin-cars-card>
+        </div>
+
+        <!-- host cards -->
+        <div class="grid 2xl:grid-cols-5 gap-10 w-full mb-16" *ngIf="role === 'host'">
+            <!-- <div class="p-5 bg-white w-full flex flex-col justify-between">
                 <h5 class="text-5xl font-medium h-32">926</h5>
                 <div class="flex justify-between items-center">
                     <p class="text-2xl font-medium">Bookings</p>
@@ -52,7 +25,7 @@
                     </a>
                 </div>
             </div>
-            <div class="p-5 bg-white w-1/5 flex flex-col justify-between" *ngIf="role === 'admin'">
+            <div class="p-5 bg-white w-full flex flex-col justify-between" *ngIf="role === 'admin'">
                 <h5 class="text-5xl font-medium h-32">3</h5>
                 <div class="flex justify-between items-center">
                     <p class="text-lg font-medium">Deactivated accounts</p>
@@ -63,11 +36,11 @@
                         </svg>
                     </a>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <!-- host cars table -->
-        <div class="p-5 bg-white rounded mb-10">
+        <div class="p-5 bg-white rounded mb-10" *ngIf="role === 'host'">
             <h4 class="text-xl font-medium mb-10">Cars</h4>
 
             <div class="relative overflow-x-auto">
@@ -124,7 +97,14 @@
                 </table>
             </div>
         </div>
-        
+
+        <div *ngIf="role === 'admin'" class="bg-white pb-5">
+            <app-landing></app-landing>
+        </div>
+
+        <div *ngIf="role === 'admin'" class="bg-white pb-5 mt-5">
+            <app-car-landing></app-car-landing>
+        </div>
     </div>
     
 </div>
