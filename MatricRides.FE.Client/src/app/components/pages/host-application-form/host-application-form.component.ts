@@ -5,11 +5,12 @@ import { HostApplicationService } from '../../../services/host-application/host-
 import { Modal } from 'flowbite';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-host-application-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './host-application-form.component.html',
   styleUrl: './host-application-form.component.css'
 })
@@ -33,6 +34,10 @@ export class HostApplicationFormComponent {
   //formData: any = {};
 
   image1: File | null = null
+  image1Url: string = ''
+  image2Url: string = ''
+  image3Url: string = ''
+  profileImageUrl: string = ''
   image2: File | null = null
   image3: File | null = null
   fileData: { [key: string]: File } = {};
@@ -54,14 +59,42 @@ export class HostApplicationFormComponent {
     if (imageNumber === 'image1') {
       this.image1 = file;
       this.host.carImages.push(this.image1)
+
+      // display uploaded image1
+      const reader = new FileReader()
+      reader.onload = (e:any) => {
+        this.image1Url = e.target.result
+      }
+      reader.readAsDataURL(file);
     } else if (imageNumber === 'image2') {
       this.image2 = file;
       this.host.carImages.push(this.image2)
+
+      // display uploaded image2
+      const reader = new FileReader()
+      reader.onload = (e:any) => {
+        this.image2Url = e.target.result
+      }
+      reader.readAsDataURL(file);
     } else if (imageNumber === 'image3') {
       this.image3 = file;
       this.host.carImages.push(this.image3)
+
+      // display uploaded image2
+      const reader = new FileReader()
+      reader.onload = (e:any) => {
+        this.image3Url = e.target.result
+      }
+      reader.readAsDataURL(file);
     } else if (imageNumber === 'profileImage') {
       this.host.profilePicture = file;
+
+      // display profile image
+      const reader = new FileReader()
+      reader.onload = (e:any) => {
+        this.profileImageUrl = e.target.result
+      }
+      reader.readAsDataURL(file);
     }
   }
 
