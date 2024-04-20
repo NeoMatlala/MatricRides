@@ -43,14 +43,34 @@
 <div *ngIf="showApproved" class="w-full bg-white rounded-lg shadow dark:border md:mt-5 xl:p-0">
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
         <form class="space-y-4 md:space-y-6" (ngSubmit)="createHost()">
-            <div>
+            <div class="relative">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input [(ngModel)]="hostUser.password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+
+                <div *ngIf="hostUser.password" class="p-4 opacity-80 bg-white rounded min-h-[10vh] shadow absolute -right-[27rem] -top-5 " >
+                    <p class="font-medium">Password must:</p>
+                    <ul class="mt-2 text-sm text-slate-500 list-disc ml-5 space-y-1">
+                        <li>Be a minimum length of 5 & maximum length of 50</li>
+                        <li>Have at least one non alphanumeric character</li>
+                        <li>Have at least one digit ('0'-'9')</li>
+                        <li>Have at least one uppercase ('A'-'Z')</li>
+                    </ul>
+                </div>
             </div>
             <div>
                 <label for="confirmPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                 <input [(ngModel)]="hostUser.confirmPassword" type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
             </div> 
+
+            <div *ngIf="passwordMismatch" class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  <span class="font-medium">Oops! Passwords do not match</span>
+                </div>
+            </div>
             
             <button type="submit" class="w-full text-white block bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create account</button>
         </form>

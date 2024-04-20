@@ -22,6 +22,7 @@ export class CreateHostAccountComponent {
   successModalElement: HTMLElement | null = null;
 
   successModalMessage: string = "Your host account has successfully been created";
+  passwordMismatch: boolean = false
 
   hostUser: CreateHostUser = {
     email: '',
@@ -30,7 +31,9 @@ export class CreateHostAccountComponent {
     role: 'host'
   }
 
-  constructor(private _hostService: HostApplicationService, private elementRef: ElementRef, private router: Router, private _userService:UserService) {}
+  constructor(private _hostService: HostApplicationService, private elementRef: ElementRef, private router: Router, private _userService:UserService) {
+    this.passwordMismatch = false
+  }
 
   ngAfterViewInit(): void {
     this.successModalElement = this.elementRef.nativeElement.querySelector('#success-modal')
@@ -58,6 +61,7 @@ export class CreateHostAccountComponent {
 
   createHost() {
     if(this.hostUser.password !== this.hostUser.confirmPassword) {
+      this.passwordMismatch = true
       console.log("password mismatch")
     } else {
       
