@@ -11,6 +11,7 @@ import { AdminCarsCardComponent } from './components/dashboard/cards/admin-cars-
 import { LandingComponent as AdminCarsLanding } from './components/pages/admin-cars/landing/landing.component';
 import { ViewCarComponent as AdminViewCar } from './components/pages/admin-cars/view-car/view-car.component';
 import { LandingComponent as AdminUsersLanding } from './components/pages/users/landing/landing.component';
+import { LandingComponent as HostCarLanding } from './components/pages/car/landing/landing.component';
 
 export const routes: Routes = [
     {path: '', redirectTo:'/login', pathMatch: 'full'},
@@ -34,6 +35,7 @@ export const routes: Routes = [
             {path: 'cars', component: AdminCarsLanding},
             {path: 'view-car-details/:id', component: AdminViewCar},
             {path: 'users', component: AdminUsersLanding},
+            {path: 'host-cars', component: HostCarLanding},
         ]
     }
 ];

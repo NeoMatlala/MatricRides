@@ -1,1 +1,57 @@
-<p>landing works!</p>
+<div class="px-10 py-5">
+    <h1 class="text-3xl font-medium mb-10">Cars</h1>
+
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Car
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Year
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Doors
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Color
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        FuelType
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Hourly Rate
+                    </th>
+                    <th scope="col" class="px-6 py-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900">
+                        {{hostCar.make}} {{hostCar.model}}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{hostCar.year}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{hostCar.doors}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{hostCar.color}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{hostCar.fuelType}}
+                    </td>
+                    <td class="px-6 py-4">
+                        R{{hostCar.hourlyRate}}
+                    </td>
+                    <td class="px-6 py-4">
+                        <!-- <a routerLink="/view-car"  class="text-blue-600 hover:cursor-pointer hover:underline">Review</a> -->
+                        <a (click)="viewCar(hostCar.make)" class="text-blue-600 hover:cursor-pointer hover:underline">View</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

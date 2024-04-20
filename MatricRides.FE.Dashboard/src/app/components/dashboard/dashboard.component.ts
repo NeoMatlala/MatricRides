@@ -8,6 +8,7 @@ import { AdminCarsCardComponent } from './cards/admin-cars-card/admin-cars-card.
 import { LandingComponent } from '../pages/admin-cars/landing/landing.component';
 import { LandingComponent as carTable} from '../pages/users/landing/landing.component';
 import { UsersCardComponent } from './cards/users-card/users-card.component';
+import { HostCarsCardComponent } from './cards/host-cars-card/host-cars-card.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +17,12 @@ import { UsersCardComponent } from './cards/users-card/users-card.component';
     CommonModule,
     RouterLink,
     ViewCarComponent,
+    HostCarsCardComponent,
     HostApplicationCardComponent,
     AdminCarsCardComponent,
     LandingComponent,
     UsersCardComponent,
-    carTable
+    carTable,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -36,20 +38,20 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
-    this.hostEmail = localStorage.getItem('email')
     
-    try {
-      this._hostService.getHost(this.hostEmail).subscribe((response: any) => {
+    
+    // try {
+    //   this._hostService.getHost(this.hostEmail).subscribe((response: any) => {
         
-        this.host = response.hostObj
-        this.hostCar = response.hostObj.cars[0]
-        console.log( this.host)
+    //     this.host = response.hostObj
+    //     this.hostCar = response.hostObj.cars[0]
+    //     console.log( this.host)
 
-        this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
-      })
-    } catch (error) {
-      console.log("Error getting service: ", error)
-    }
+    //     this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
+    //   })
+    // } catch (error) {
+    //   console.log("Error getting service: ", error)
+    // }
   }
 
   viewCar(make:string) {
