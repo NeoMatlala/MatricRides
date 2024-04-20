@@ -13,90 +13,11 @@
 
         <!-- host cards -->
         <div class="grid 2xl:grid-cols-5 gap-10 w-full mb-16" *ngIf="role === 'host'">
-            <!-- <div class="p-5 bg-white w-full flex flex-col justify-between">
-                <h5 class="text-5xl font-medium h-32">926</h5>
-                <div class="flex justify-between items-center">
-                    <p class="text-2xl font-medium">Bookings</p>
-                    <a class="flex justify-end items-center gap-2 hover:underline">
-                        View
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right w-3" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="p-5 bg-white w-full flex flex-col justify-between" *ngIf="role === 'admin'">
-                <h5 class="text-5xl font-medium h-32">3</h5>
-                <div class="flex justify-between items-center">
-                    <p class="text-lg font-medium">Deactivated accounts</p>
-                    <a class="flex justify-end items-center gap-2 hover:underline">
-                        View
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right w-3" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-                        </svg>
-                    </a>
-                </div>
-            </div> -->
+            <app-host-cars-card></app-host-cars-card>
         </div>
 
         <!-- host cars table -->
-        <div class="p-5 bg-white rounded mb-10" *ngIf="role === 'host'">
-            <h4 class="text-xl font-medium mb-10">Cars</h4>
-
-            <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Car
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Year
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Doors
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Color
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                FuelType
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Hourly Rate
-                            </th>
-                            <th scope="col" class="px-6 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900">
-                                {{hostCar.make}} {{hostCar.model}}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{hostCar.year}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{hostCar.doors}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{hostCar.color}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{hostCar.fuelType}}
-                            </td>
-                            <td class="px-6 py-4">
-                                R{{hostCar.hourlyRate}}
-                            </td>
-                            <td class="px-6 py-4">
-                                <!-- <a routerLink="/view-car"  class="text-blue-600 hover:cursor-pointer hover:underline">Review</a> -->
-                                <a (click)="viewCar(hostCar.make)" class="text-blue-600 hover:cursor-pointer hover:underline">View</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        
 
         <div *ngIf="role === 'admin'" class="bg-white pb-5">
             <app-landing></app-landing>
