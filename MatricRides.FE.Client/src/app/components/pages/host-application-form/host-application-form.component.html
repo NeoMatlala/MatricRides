@@ -26,22 +26,25 @@
             <div >
                 <label for="fuel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fuel type</label>
                 <input [(ngModel)]="host.fuelType" type="text" id="fuel" name="fuleType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required placeholder="Diesel" />
+                
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image1">Upload image</label>
                 <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image1_help" name="image1" (change)="onFileSelected($event, 'image1')" accept="image/*" id="image1" type="file">
-                
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image2">Upload image</label>
                 <input name="image2" (change)="onFileSelected($event, 'image2')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image2_help" id="image2" type="file">
-                
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image3">Upload image</label>
                 <input name="image3" (change)="onFileSelected($event, 'image3')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image3_help" id="image3" type="file">
-                
             </div>
+        </div>
+        <div class="mt-5 flex justify-start items-center gap-2 h-44" *ngIf="image1 || image2 || image3">
+            <img [src]="image1Url" class="h-full object-cover w-1/4" *ngIf="image1">
+            <img [src]="image2Url" class="h-full w-1/4 object-cover" *ngIf="image2">
+            <img [src]="image3Url" class="h-full w-1/4 object-cover" *ngIf="image3">
         </div>
         <div class="mt-5">
             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
@@ -74,7 +77,11 @@
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="profileImage">Upload profile image</label>
-                <input name="profileImage" (change)="onFileSelected($event, 'profileImage')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="profileImage_help" id="profileImage" type="file">
+                <div class="flex justify-start items-center gap-5">
+                    <input name="profileImage" (change)="onFileSelected($event, 'profileImage')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="profileImage_help" id="profileImage" type="file">
+                    <img class="w-12 h-12 rounded-full object-cover" *ngIf="host.profilePicture" [src]="profileImageUrl" alt="Rounded avatar">
+                </div>
+                
             </div>
         </div>
         
