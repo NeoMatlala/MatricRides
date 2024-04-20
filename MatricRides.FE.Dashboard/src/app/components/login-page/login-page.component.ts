@@ -3,19 +3,29 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { loginUser } from '../../models/login-user';
 import { UserService } from '../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
   imports: [
     RouterLink,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
-  constructor(private router: Router, private _userService: UserService) {}
+  incorrectPassword: boolean = false
+  incorrectUser: boolean = false
+
+  constructor(private router: Router, private _userService: UserService) {
+    this.incorrectPassword = false
+    this.incorrectUser = false
+  }
+
+  
 
   user: loginUser = {
     email: '',
@@ -35,6 +45,16 @@ export class LoginPageComponent {
     },
     error => {
      console.log("error logging in:", error) 
+
+     if(error.error.message == "User does not exist") {
+      this.incorrectUser = true
+     }
+
+     if(error.error.message == "Incorrect Password") {
+      this.incorrectPassword = true
+     }
+
+     
     })
   }
 }
