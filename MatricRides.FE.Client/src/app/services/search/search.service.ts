@@ -13,4 +13,14 @@ export class SearchService {
   public searchCars(city:string): Observable<any> {
     return this.http.get(`https://localhost:7101/api/Search/get-cars?city=${city}`)
   }
+
+  // filter: descending
+  public descendingHourlyRate(city:string): Observable<any> {
+    return this.http.get(`https://localhost:7101/api/Search/filter-hourly-rate-descending?city=${city}`)
+  }
+
+  // filter: descending
+  public ascendingHourlyRate(city:string): Observable<any> {
+    return this.http.get(`https://localhost:7101/api/Search/filter-hourly-rate-ascending?city=${city}`)
+  }
 }

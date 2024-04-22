@@ -11,5 +11,9 @@ namespace MatricRides.Application.Services.SearchService
     public interface ISearchService
     {
         SearchResponse getCarsViaCity(string city);
+
+        SearchResponse filterPriceHighToLow(string city);
+
+        SearchResponse filterAscendingHourlyRate(string city);
     }
 }

@@ -21,7 +21,21 @@ namespace MatricRides.WebAPI.Controllers
         {
             var result = _searchService.getCarsViaCity(city);
 
-            
+            return Ok(result);
+        }
+
+        [HttpGet("filter-hourly-rate-descending")]
+        public IActionResult DescendingHourlyRateFilter(string city)
+        {
+            var result = _searchService.filterPriceHighToLow(city);
+
+            return Ok(result);
+        }
+
+        [HttpGet("filter-hourly-rate-ascending")]
+        public IActionResult AscendingHourlyRateFilter(string city)
+        {
+            var result = _searchService.filterAscendingHourlyRate(city);
 
             return Ok(result);
         }
