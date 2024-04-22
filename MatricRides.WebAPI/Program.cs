@@ -1,6 +1,7 @@
 using MatricRides.Application.Services.CarsService;
 using MatricRides.Application.Services.HostApprovalService;
 using MatricRides.Application.Services.HostService;
+using MatricRides.Application.Services.SearchService;
 using MatricRides.Application.Services.UserService;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -61,6 +62,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IHostApprovalService, HostApprovalService>();
 builder.Services.AddScoped<IHostService, HostService>();
 builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 var app = builder.Build();
 

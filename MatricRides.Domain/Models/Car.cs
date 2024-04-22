@@ -18,6 +18,8 @@ namespace MatricRides.Domain.Models
         public string FuelType { get; set; }
         public string Descripion { get; set; }
         public string HourlyRate { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
 
         public List<Image> Images { get; set; }
     }
