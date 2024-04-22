@@ -56,5 +56,71 @@ namespace MatricRides.Application.Services.SearchService
                 Cars = cars
             };
         }
+
+        public SearchResponse filterPriceHighToLow(string city)
+        {
+            var cars = _db.Cars.Include(i => i.Images).Where(c => c.City == city).OrderByDescending(x => Convert.ToInt32(x.HourlyRate)).ToList();
+            
+            var allCars = _db.Cars.Include(i => i.Images).OrderByDescending(x => Convert.ToInt32(x.HourlyRate)).ToList();
+
+            if(city == "all")
+            {
+                return new SearchResponse
+                {
+                    searchSuccess = false,
+                    Message = "See all cars",
+                    Cars = allCars
+                };
+            } 
+            else if (cars.Count == 0)
+            {
+                return new SearchResponse
+                {
+                    searchSuccess = false,
+                    Message = $"Unfortunatey, there are currently no cars in '{city}', see all cars",
+                    Cars = allCars
+                };
+            }
+
+            return new SearchResponse
+            {
+                searchSuccess = true,
+                Message = $"Book a car in {city}",
+                Cars = cars
+            };
+        }
+
+        public SearchResponse filterAscendingHourlyRate(string city)
+        {
+            var cars = _db.Cars.Include(i => i.Images).Where(c => c.City == city).OrderBy(x => Convert.ToInt32(x.HourlyRate)).ToList();
+
+            var allCars = _db.Cars.Include(i => i.Images).OrderBy(x => Convert.ToInt32(x.HourlyRate)).ToList();
+
+            if (city == "all")
+            {
+                return new SearchResponse
+                {
+                    searchSuccess = false,
+                    Message = "See all cars.",
+                    Cars = allCars
+                };
+            }
+            else if (cars.Count == 0)
+            {
+                return new SearchResponse
+                {
+                    searchSuccess = false,
+                    Message = $"Unfortunatey, there are currently no cars in '{city}', see all cars.",
+                    Cars = allCars
+                };
+            }
+
+            return new SearchResponse
+            {
+                searchSuccess = true,
+                Message = $"Book a car in {city}.",
+                Cars = cars
+            };
+        }
     }
 }
