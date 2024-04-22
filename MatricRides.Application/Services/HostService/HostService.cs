@@ -27,9 +27,18 @@ namespace MatricRides.Application.Services.HostService
             return hosts;
         }
 
+        // Get host via ID with cars
         public Host GetCar(int id)
         {
             var car = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).FirstOrDefault(x => x.HostId == id);
+
+            return car;
+        }
+
+        // Get host via ID no cars
+        public Host GetCarNoCars(int id)
+        {
+            var car = _db.Hosts.FirstOrDefault(x => x.HostId == id);
 
             return car;
         }

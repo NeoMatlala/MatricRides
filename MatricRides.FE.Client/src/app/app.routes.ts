@@ -9,6 +9,6 @@ export const routes: Routes = [
     {path: '', component: HomePageComponent},
     {path: 'how-it-works', component: HowItWorksComponent},
     {path: 'host-application-form', component: HostApplicationFormComponent},
-    {path: 'results', component: ResultsComponent},
+    {path: 'results/:city', component: ResultsComponent},
     {path: 'car-rental/:make/:id/:year', component: CarRentalComponent},
 ];
