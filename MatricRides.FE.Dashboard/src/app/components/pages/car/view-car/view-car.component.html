@@ -31,6 +31,14 @@
                 <p class="text-slate-400">Fuel:</p>
                 <p class="font-medium">{{carObj.fuelType}}</p>
             </div>
+            <div class="flex justify-between w-80 items-center">
+                <p class="text-slate-400">City:</p>
+                <p class="font-medium">{{carObj.city}}</p>
+            </div>
+            <div class="flex justify-between w-80 items-center">
+                <p class="text-slate-400">Province:</p>
+                <p class="font-medium">{{carObj.province}}</p>
+            </div>
         </div>
 
         <div class="mt-10">
@@ -45,8 +53,10 @@
         </div>
 
         <div class="flex justify-end items-center gap-2">
-            <button class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Update</button>
-            <button  class="text-white mt-10 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Delete</button>
+            <button (click)="openProfileModal()" class="text-white mt-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Update</button>
+            <!-- <button  class="text-white mt-10 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Delete</button> -->
         </div>
     </div>
 </div>
+
+<app-edit-car [data]="carObj"></app-edit-car>

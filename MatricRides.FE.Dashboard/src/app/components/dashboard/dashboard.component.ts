@@ -9,6 +9,7 @@ import { LandingComponent } from '../pages/admin-cars/landing/landing.component'
 import { LandingComponent as carTable} from '../pages/users/landing/landing.component';
 import { UsersCardComponent } from './cards/users-card/users-card.component';
 import { HostCarsCardComponent } from './cards/host-cars-card/host-cars-card.component';
+import { TopNavComponent } from '../pages/host-profile/top-nav/top-nav.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,7 @@ import { HostCarsCardComponent } from './cards/host-cars-card/host-cars-card.com
     LandingComponent,
     UsersCardComponent,
     carTable,
+    
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -38,11 +40,12 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
+    //this.hostEmail = localStorage.getItem('email')
     
     
     // try {
     //   this._hostService.getHost(this.hostEmail).subscribe((response: any) => {
-        
+    //     //console.log(response)
     //     this.host = response.hostObj
     //     this.hostCar = response.hostObj.cars[0]
     //     console.log( this.host)

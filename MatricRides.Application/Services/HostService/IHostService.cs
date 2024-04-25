@@ -1,5 +1,6 @@
 ﻿using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace MatricRides.Application.Services.HostService
         Host GetCar(int id);
 
         HostApprovalResponse GetHostViaID(int id);
+
+        HostApprovalResponse UpdateHost(int id, UpdateHostDTO model, IFormFile? image);
     }
 }

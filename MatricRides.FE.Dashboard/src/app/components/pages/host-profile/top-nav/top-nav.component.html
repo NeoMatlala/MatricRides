@@ -1,0 +1,17 @@
+<div (click)="showMenu()" class="px-10 relative py-5 bg-white flex justify-end items-center">
+    <img class="w-14 h-14 rounded-full object-cover" [src]="profilePic" alt="Rounded avatar">
+    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+    </svg>
+</div>
+
+<div *ngIf="showProfileMenu" id="dropdown" class="z-10 absolute top-24 right-10  bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
+    <ul class="py-2 text-gray-700">
+      <li>
+        <a (click)="viewProfile(host.email)" class="block px-4 py-2 hover:bg-gray-100 hover:cursor-pointer">Profile</a>
+      </li>
+      <li>
+        <a (click)="removeRole()" class="block px-4 py-2 hover:bg-gray-100 hover:cursor-pointer">Logout</a>
+      </li>
+    </ul>
+</div>
