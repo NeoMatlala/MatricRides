@@ -1,6 +1,7 @@
 ﻿using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,76 @@ namespace MatricRides.Application.Services.HostService
             _db = db;
         }
 
-        // get hosts
+        // update host
+        public HostApprovalResponse UpdateHost(int id, UpdateHostDTO model, IFormFile? image)
+        {
+            if(id == 0)
+            {
+                return new HostApprovalResponse
+                {
+                    IsSuccess = false,
+                    Message = "Invalid ID"
+                };
+            }
+
+            try
+            {
+                var host = _db.Hosts.Find(id);
+
+                if (host == null)
+                {
+                    return new HostApprovalResponse
+                    {
+                        IsSuccess = false,
+                        Message = $"No host with ID: {id}"
+                    };
+                }
+
+                if(!string.IsNullOrEmpty(model.Surname))
+                {
+                    host.Surname = model.Surname;
+                }
+
+                if (!string.IsNullOrEmpty(model.Email))
+                {
+                    host.Email = model.Email;
+                }
+
+                if (!string.IsNullOrEmpty(model.Name))
+                {
+                    host.Name = model.Name;
+                }
+
+                if(image != null)
+                {
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        image.CopyTo(stream);
+
+                        host.ProfilePicture = stream.ToArray();
+                    }
+                }
+
+                _db.Hosts.Update(host);
+                _db.SaveChanges();
+
+                return new HostApprovalResponse
+                {
+                    IsSuccess = true,
+                    Message = "Host updated"
+                };
+            }
+            catch(Exception ex)
+            {
+                return new HostApprovalResponse
+                {
+                    IsSuccess = false,
+                    Message = $"Error updating host: {ex.Message}"
+                };
+            }
+        }
+
+        // get approved hosts
         public List<Host> GetHosts()
         {
             var hosts = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).Where(x => x.IsApproved == true).ToList();

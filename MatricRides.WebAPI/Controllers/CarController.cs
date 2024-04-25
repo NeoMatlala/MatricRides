@@ -1,5 +1,7 @@
 ﻿using MatricRides.Application.Services.CarsService;
 using MatricRides.Application.Services.HostService;
+using MatricRides.Domain.DTOs;
+using MatricRides.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +16,19 @@ namespace MatricRides.WebAPI.Controllers
         public CarController(ICarService carService)
         {
             _carService = carService;
+        }
+
+        [HttpPut("update-car/{id}")]
+        public IActionResult UpdateCar(int id, [FromForm] UpdateCarDTO model, List<IFormFile>? carImages)
+        {
+            var result = _carService.UpdateCar(id, model, carImages);
+
+            if(!result.IsUpdated)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("get-cars")]

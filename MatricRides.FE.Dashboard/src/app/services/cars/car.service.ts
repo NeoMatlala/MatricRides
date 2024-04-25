@@ -23,4 +23,9 @@ export class CarService {
   public getCarInfo(hostId: number): Observable<any> {
     return this.http.get(`https://localhost:7101/api/Car/get-car-info/${hostId}`)
   }
+
+  // upate-car
+  public updateCar(carId:number, car: any): Observable<any> {
+    return this.http.put<any>(`https://localhost:7101/api/Car/update-car/${carId}`, car)
+  }
 }
