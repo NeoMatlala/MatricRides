@@ -1,0 +1,74 @@
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-x-16 md:mt-10 2xl:mt-10 mb-10 px-4 md:px-0">
+    <div class="flex flex-col md:flex-row justify-between items-start md:gap-16 w-full">
+        <div class="w-full md:w-2/3">
+            <h2 class="mb-4 text-5xl md:text-6xl tracking-tight font-medium text-gray-900">Contact Us</h2>
+            <p class="mb-4 text-gray-400 w-full md:w-1/2">Email, call or complete the form and we'lll get back to you with all your queries</p>
+            <p class="text-slate-400">015 2142 365</p>
+            <div class="flex flex-col md:flex-row justify-between items-start mt-10 md:mt-16 gap-5">
+                <div class="w-full md:w-1/3">
+                    <h4 class="text-2xl mb-2">Contact Support</h4>
+                    <p class="mb-4 text-sm text-gray-400">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptatibus molestiae labore laboriosam rerum itaque tempore libero repudiandae obcaecati veritatis.</p>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h4 class="text-2xl mb-2">Feedback</h4>
+                    <p class="mb-4 text-sm text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eligendi deserunt, debitis deleniti aut molestiae saepe voluptatum reiciendis iste totam nobis aliquam ducimus ipsam consectetur obcaecati vero veritatis, aperiam soluta.</p>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h4 class="text-2xl mb-2">Media Inquiries</h4>
+                    <p class="mb-4 text-sm text-gray-400">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus voluptatibus molestiae labore laboriosam rerum itaque tempore libero repudiandae obcaecati veritatis.</p>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3">
+            <section>
+                <div class="py-8 md:px-4 md:border-[1px] md:border-slate-100 md:rounded-2xl">
+                    <form (ngSubmit)="onSubmit()" class="space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Name & Surname</label>
+                                <input type="text" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg placeholder:font-light focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 placeholder:text-slate-300" placeholder="Matome" required [(ngModel)]="contactForm.name" name="name">
+                            </div>
+                            <div>
+                                <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Phone Number</label>
+                                <input [(ngModel)]="contactForm.phoneNumber" name="phoneNumber" type="text" id="phoneNumber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg placeholder:font-light focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 placeholder:text-slate-300" placeholder="0741452563" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
+                            <input [(ngModel)]="contactForm.email" name="email" type="email" id="email" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border placeholder:text-slate-300 placeholder:font-light border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 c" placeholder="ml@email.com" required>
+                        </div>
+                        <div>
+                            <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Subject</label>
+                            <input [(ngModel)]="contactForm.subject" name="subject" type="email" id="subject" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 placeholder:text-slate-300 placeholder:font-light" placeholder="Enquiry on insurance" required>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your message</label>
+                            <textarea [(ngModel)]="contactForm.messageBody" name="messageBody" id="message" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border placeholder:font-light placeholder:text-slate-300 border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Leave a comment..."></textarea>
+                        </div>
+                        <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 w-full">Send message</button>
+                    </form>
+                </div>
+              </section>
+        </div>
+    </div>
+    
+</div>
+
+<!-- success modal -->
+<div id="success-modal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            
+            <div class="p-4 md:p-5 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{{successModalMessage}}</h3>
+                <button (click)="closeSuccessModal()" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                    Thank you
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
