@@ -19,9 +19,9 @@ namespace MatricRides.WebAPI.Controllers
         }
 
         [HttpPut("update-car/{id}")]
-        public IActionResult UpdateCar(int id, [FromForm] UpdateCarDTO model, List<IFormFile>? carImages)
+        public IActionResult UpdateCar(int id, [FromForm] UpdateCarDTO updateModel, List<IFormFile>? carImages)
         {
-            var result = _carService.UpdateCar(id, model, carImages);
+            var result = _carService.UpdateCar(id, updateModel, carImages);
 
             if(!result.IsUpdated)
             {
