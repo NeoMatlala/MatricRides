@@ -54,18 +54,51 @@
                         <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Province</label>
                         <input type="text" name="province" [(ngModel)]="car.province" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
                     </div>  
-                    <div>
+                    <div *ngIf="car.images.length == 0">
+                        <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Upload Car Images</label>
+                        <div class="flex justify-start mt-2 items-start gap-10">
+                            <div class="flex flex-col items-start justify-center gap-3">
+                                <label for="upload-car-image" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 p-2 bg-slate-100 rounded-full">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                      </svg>                                  
+                                </label>
+                                <input (change)="onFileSelected($event, 'uploadedImage1')" accept="image/*" type="file"  name="upload-car-image" id="upload-car-image" class="hidden" />
+                                <img *ngIf="uploadedImage1" [src]="uploadedImage1" class="w-20 h-20 rounded-full object-cover">
+                            </div>
+                            <div class=" flex flex-col items-start justify-center gap-3">
+                                <label for="upload-car-image-2" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 p-2 bg-slate-100 rounded-full">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                      </svg>                                  
+                                </label>
+                                <input (change)="onFileSelected($event, 'uploadedImage2')" accept="image/*" type="file"  name="upload-car-image-2" id="upload-car-image-2" class="hidden" />
+                                <img *ngIf="uploadedImage2" [src]="uploadedImage2" class="w-20 h-20 rounded-full object-cover">
+                            </div>
+                            <div class=" flex flex-col items-start justify-center gap-3">
+                                <label for="upload-car-image-3" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 p-2 bg-slate-100 rounded-full">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                      </svg>                                  
+                                </label>
+                                <input (change)="onFileSelected($event, 'uploadedImage3')" accept="image/*" type="file"  name="upload-car-image-3" id="upload-car-image-3" class="hidden" />
+                                <img *ngIf="uploadedImage3" [src]="uploadedImage3" class="w-20 h-20 rounded-full object-cover">
+                            </div>
+                        </div>
+                    </div>  
+                    <div *ngIf="car.images.length > 0">
                         <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Car Images</label>
                         <div class="flex justify-center items-center gap-2 ">
-                            <div *ngFor="let src of imageSrc" class="h-24 relative">
-                                <img [src]="src" alt="Image" class="h-full w-full object-cover">
+                            <div *ngFor="let src of imagesWithIDAndSrc; let i = index" class="h-24 relative">
+                                <img [src]="src.src" [name]="src.picId" class="h-full w-full object-cover">
+                                <!-- <img *ngIf="latestUploadIndex == i" [src]="latestUpload" class="h-full w-full object-cover"> -->
                                 <div class="p-2 bg-blue-300 rounded-full absolute -top-3 -right-3">
-                                    <label for="uploadedImage">
+                                    <label for="uploadedImage" (click)="showID(src.picId, src.src, i)">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 fill-white">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                                         </svg>
                                     </label>
-                                    <input type="file" accept="image/*" multiple (change)="editImages($event)" class="hidden" id="uploadedImage">
+                                    <input type="file" accept="image/*" multiple (change)="editImages($event, i)" class="hidden" id="uploadedImage">
                                 </div>
                             </div>
                         </div>
@@ -73,7 +106,7 @@
                 </div>
                 <div class="p-4 md:p-5">
                     <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                    <textarea [(ngModel)]="car.descripion"  id="description" name="descripion" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your description here..."></textarea>
+                    <textarea [(ngModel)]="car.description"  id="description" name="description" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your description here..."></textarea>
                 </div>
 
                 

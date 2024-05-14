@@ -92,15 +92,41 @@ namespace MatricRides.Application.Services.CarsService
                             };
 
                             _db.Images.Add(imageEntity);
-                            _db.SaveChanges();
                         }
                     }
+                    _db.SaveChanges();
+                } 
+                else
+                {
+                    // ELSE: replace all with new set. FE must send new FULL set of images
+                    // 1. delete existing (currentImages) own foreach
+                    foreach(var image in currentImages)
+                    {
+                        _db.Images.Remove(image);
+                    }
+
+                    foreach (var carImage in carImages)
+                    {
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            carImage.CopyTo(stream);
+
+                            var imageEntity = new Image
+                            {
+                                CarId = car.CarId,
+                                CarImage = stream.ToArray()
+                            };
+
+                            _db.Images.Add(imageEntity);
+                        }
+                    }
+
+                    _db.SaveChanges();
                 }
 
-                // ELSE: replace all with new set. FE must send new FULL set of images
-                // save to Images table
+                // add new to images
 
-                if(!string.IsNullOrEmpty(model.Make))
+                if (!string.IsNullOrEmpty(model.Make))
                 {
                     car.Make = model.Make;
                 }
