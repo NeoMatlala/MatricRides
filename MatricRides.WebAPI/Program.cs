@@ -1,4 +1,5 @@
 using MatricRides.Application.Services.CarsService;
+using MatricRides.Application.Services.ContactUsService;
 using MatricRides.Application.Services.HostApprovalService;
 using MatricRides.Application.Services.HostService;
 using MatricRides.Application.Services.SearchService;
@@ -63,6 +64,7 @@ builder.Services.AddScoped<IHostApprovalService, HostApprovalService>();
 builder.Services.AddScoped<IHostService, HostService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IContactUsService, ContactUsService>();
 
 var app = builder.Build();
 
