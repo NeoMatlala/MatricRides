@@ -12,6 +12,7 @@ import { LandingComponent as AdminCarsLanding } from './components/pages/admin-c
 import { ViewCarComponent as AdminViewCar } from './components/pages/admin-cars/view-car/view-car.component';
 import { LandingComponent as AdminUsersLanding } from './components/pages/users/landing/landing.component';
 import { LandingComponent as HostCarLanding } from './components/pages/car/landing/landing.component';
+import { LandingComponent as AdminMessagesLanding } from './components/pages/messages/landing/landing.component';
 import { ProfilePageComponent } from './components/pages/host-profile/profile-page/profile-page.component';
 
 export const routes: Routes = [
@@ -34,6 +35,7 @@ export const routes: Routes = [
             {path: 'review-application/:id', component: ReviewComponent},
             {path: 'view-car/:make', component: ViewCarComponent},
             {path: 'cars', component: AdminCarsLanding},
+            {path: 'messages', component: AdminMessagesLanding},
             {path: 'view-car-details/:id', component: AdminViewCar},
             {path: 'users', component: AdminUsersLanding},
             {path: 'host-cars', component: HostCarLanding},

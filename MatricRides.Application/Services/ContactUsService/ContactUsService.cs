@@ -18,6 +18,38 @@ namespace MatricRides.Application.Services.ContactUsService
             _db = db;
         }
 
+        public List<Message> GetMessages()
+        {
+            var messages = _db.Messages.OrderByDescending(x => x.MessageId).ToList();
+
+            return messages;
+        }
+
+        public int UnreadMessages()
+        {
+            var messages = _db.Messages.Where(x => x.IsRead == false).ToList();
+
+            return messages.Count;
+        }
+
+        public Message GetMessage(int id)
+        {
+            var message = _db.Messages.Find(id);
+
+            if(message == null)
+            {
+                return null;
+            }
+
+            if (!message.IsRead)
+            {
+                message.IsRead = true;
+                _db.SaveChanges();
+            }
+
+            return message;
+        }
+
         public ContactUsResponse SendMessage(ContactUsDTO messageModel)
         {
             try

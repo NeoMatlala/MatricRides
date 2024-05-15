@@ -17,6 +17,40 @@ namespace MatricRides.WebAPI.Controllers
             _contactUs = contactUs;
         }
 
+        [HttpGet("get-messages")]
+        public IActionResult GetMessages()
+        {
+            var result = _contactUs.GetMessages();
+
+            return Ok(result);
+        }
+
+        [HttpGet("unread-messages")]
+        public IActionResult GetUnreadMessages()
+        {
+            var result = _contactUs.UnreadMessages();
+
+            return Ok(result);
+        }
+
+        [HttpGet("get-message/{id}")]
+        public IActionResult GetMessages(int id)
+        {
+            if(id == 0)
+            {
+                return BadRequest("Invalid ID");
+            }
+
+            var result = _contactUs.GetMessage(id);
+
+            if (result== null)
+            {
+                return BadRequest("Message does not exist");
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost("send-message")]
         public IActionResult SendMessage([FromBody] ContactUsDTO messageBody)
         {

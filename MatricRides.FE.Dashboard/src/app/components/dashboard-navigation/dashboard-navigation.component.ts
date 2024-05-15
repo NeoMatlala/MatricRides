@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Route, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ContactUsService } from '../../services/contact-us/contact-us.service';
 
 @Component({
   selector: 'app-dashboard-navigation',
@@ -15,13 +16,22 @@ import { Route, Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class DashboardNavigationComponent {
 
-  constructor(private router: Router, ) {}
+  constructor(private router: Router, private contactService: ContactUsService) {}
 
   role: any = " "
+  unreadCount: number = 0
   
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
+
+    try {
+      this.contactService.getUnreadMessages().subscribe((response:any) => {
+        this.unreadCount = response
+      })
+    } catch (error) {
+      console.log("Error getting unread message count",error)
+    }
   }
 
   removeRole(): void {
