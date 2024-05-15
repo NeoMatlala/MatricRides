@@ -11,5 +11,11 @@ namespace MatricRides.Application.Services.ContactUsService
     public interface IContactUsService
     {
         ContactUsResponse SendMessage(ContactUsDTO messageModel);
+
+        List<Message> GetMessages();
+
+        Message GetMessage(int id);
+
+        int UnreadMessages();
     }
 }
