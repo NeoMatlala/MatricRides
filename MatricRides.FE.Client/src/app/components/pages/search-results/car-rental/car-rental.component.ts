@@ -1,15 +1,27 @@
-import { ChangeDetectorRef, Component, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CarService } from '../../../../services/cars/car.service';
 import { CarouselModule } from '@coreui/angular';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { Carousel, CarouselInterface, CarouselItem, CarouselOptions, InstanceOptions } from 'flowbite';
+import { Modal } from 'flowbite';
+import { BookingSuccessModalComponent } from '../../../modals/booking-success-modal/booking-success-modal/booking-success-modal.component';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { BookingDto } from '../../../../models/bookingDto';
+import { BookingService } from '../../../../services/booking/booking.service';
+
+//declare var Datepicker: any;
 
 @Component({
   selector: 'app-car-rental',
   standalone: true,
-  imports: [CommonModule, CarouselModule, RouterLink, ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CarouselModule,
+    RouterLink,
+    BookingSuccessModalComponent,
+    CalendarModule,],
   templateUrl: './car-rental.component.html',
   styleUrl: './car-rental.component.css'
 })
@@ -20,14 +32,44 @@ export class CarRentalComponent {
   year: number = 0
   imageSrc: string[] = []
   profilePic: string = ''
+  isUserLoggedIn: boolean = false
+  showLoginMessage: boolean = false
+  isPickup: boolean = false
+  isDelivery: boolean = true
+
+  editModalElement: HTMLElement | null = null;
+  successModalElement: HTMLElement | null = null;
 
   slides: any[] = new Array(3).fill({src: ''});
+  addressString: string = ''
 
-  constructor(private _carService: CarService, private router: ActivatedRoute, private elementRef: ElementRef) {
+  @ViewChild('inputField')
+  inputField!: ElementRef;
+
+  autocomplete: google.maps.places.Autocomplete | undefined;
+  @Input() placeholder = ''
+
+  booking: BookingDto = {}
+
+  constructor(private _carService: CarService, private _bookingService: BookingService, private router: ActivatedRoute, private elementRef: ElementRef) {
     this.router.params.subscribe(params => {
       this.hostId = params['id']
       this.make = params['imake']
       this.year = params['year']
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.editModalElement = this.elementRef.nativeElement.querySelector('#car-edit-modal')
+    this.successModalElement = this.elementRef.nativeElement.querySelector('#popup-modal')
+
+    this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement)
+
+    this.autocomplete.addListener('place_changed', () => {
+      const place = this.autocomplete?.getPlace();
+
+      this.booking.deliveryAddress = place?.formatted_address
+      // console.log(place)
     })
   }
 
@@ -43,9 +85,9 @@ export class CarRentalComponent {
     this.slides[2] = {
       src: '../assets/kim.jpg',
     }
+
+    this.showLoginMessage = false
   }
-
-
 
   fetchCar() {
     try {
@@ -55,18 +97,30 @@ export class CarRentalComponent {
 
         this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
 
-        //console.log(this.imageSrc)
-        //this.slides = this.imageSrc.map(src => ({ src }));
+        this.sortAddress(this.host.cars[0].address)
 
-        //this.slides[0] = {s}
-
-        console.log(this.imageSrc)
+        console.log(this.host)
         
       })
     } catch (error) {
       console.log("Error fetching car:", error)
     }
   }
+
+  pickupSelected() {
+    this.isDelivery = false
+    this.isPickup = true
+  }
+  deliverySelected() {
+    this.isDelivery = true
+    this.isPickup = false
+  }
+
+  sortAddress(address:any) {
+    this.addressString = `${address.streetNumber} ${address.streetName}, ${address.city}, ${address.province}`
+  
+    return this.addressString
+   }
 
   processImages(images: any[]): void {
     
@@ -75,4 +129,47 @@ export class CarRentalComponent {
       this.imageSrc.push(src)
     })
   }
+
+  // ------------------ modal code
+  showModal() {
+
+    const logInStatus = localStorage.getItem("isLoggedIn")
+
+    if(logInStatus === "true") {
+      this.isUserLoggedIn = true
+      this.showLoginMessage = false
+      const editModal = new Modal(this.editModalElement)
+      editModal.show()
+    } else {
+      // show login message
+      this.showLoginMessage = true
+    }
+   }
+
+  bookCar() {
+    // client data --- use loggedIn user email, send that to API for client data.
+
+    this.booking.clientEmail = localStorage.getItem('userEmail')!
+    this.booking.carId = this.host.cars[0].carId
+    this.booking.cost = '3000'
+
+    try {
+      this._bookingService.makeBooking(this.booking).subscribe((response: any) => {
+        console.log(response)
+
+        if(response.isBooked) {
+          this.closeProfileModal()
+          const successModal = new Modal(this.successModalElement)
+          successModal.show()
+        }
+      })
+    } catch (error) {
+      console.log("FE: Error making booking - ", error)
+    }
+  }
+
+  closeProfileModal() {
+    const editModal = new Modal(this.editModalElement)
+    editModal.hide()
+   }
 }

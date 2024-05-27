@@ -1,11 +1,16 @@
-﻿using MatricRides.Domain.DTOs;
+﻿using MatricRides.Application.Services.HttpService;
+using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MatricRides.Domain.Enums;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,10 +21,14 @@ namespace MatricRides.Application.Services.HostApprovalService
     public class HostApprovalService : IHostApprovalService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IHttpService _httpService;
+        private readonly HttpClient _httpClient;
+        private readonly string _apiKey;
 
-        public HostApprovalService(ApplicationDbContext db)
+        public HostApprovalService(ApplicationDbContext db, IHttpService httpService, IConfiguration configuration)
         {
             _db = db;
+            _httpService = httpService;
         }
 
         public isApprovedResponse CheckHostApproval(string email)
@@ -188,7 +197,9 @@ namespace MatricRides.Application.Services.HostApprovalService
                     Color = hostDTO.Color,
                     Doors = hostDTO.Doors,
                     FuelType = hostDTO.FuelType,
-                    Descripion = hostDTO.Description
+                    Descripion = hostDTO.Description,
+                    //City = "Polokwane",
+                    //Province = "Polokwane"
                 };
 
                 _db.Cars.Add(car);
@@ -217,18 +228,37 @@ namespace MatricRides.Application.Services.HostApprovalService
                     }
                 }
 
+
+
+                // TODO: pass formattedAddress to httpSerevice and have that save the object - return the AddressId so we store it on cars column: addressID
+                // parameters: addie, hostID, 1
+                int addressID = _httpService.GetAddressDetailsAsync(hostDTO.FormattedAddress, host.HostId, AddressType.Host).Result;
+
+                car.AddressId = addressID;
+                _db.SaveChanges();
+
                 return new HostApprovalResponse
                 {
                     IsSuccess = true,
-                    Message = "Host application successfully submitted, check in 24 Hours for approval on dashboard."
+                    Message = "Host application successfully submitted, check in 24 Hours for approval on dashboard.",
                 };
             }
             catch (Exception ex)
             {
+                var errorMessage = new StringBuilder();
+                errorMessage.AppendLine($"Error creating host approval: {ex.Message}");
+
+                Exception innerException = ex.InnerException;
+                while (innerException != null)
+                {
+                    errorMessage.AppendLine($"Inner Exception: {innerException.Message}");
+                    innerException = innerException.InnerException;
+                }
+
                 return new HostApprovalResponse
                 {
                     IsSuccess = false,
-                    Message = $"Error creating host approval: {ex.Message}"
+                    Message = errorMessage.ToString()
                 };
             }
         }

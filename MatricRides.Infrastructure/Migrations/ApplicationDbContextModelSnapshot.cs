@@ -22,6 +22,118 @@ namespace MatricRides.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MatricRides.Domain.Models.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
+
+                    b.Property<int>("Addresstype")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HostOrClientId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("MatricRides.Domain.Models.Booking", b =>
+                {
+                    b.Property<int>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientIDNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cost")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeclinedReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DeliveryAddressId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("School")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Until")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isDeclined")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isDelivery")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isPendingApproval")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isPickup")
+                        .HasColumnType("bit");
+
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("MatricRides.Domain.Models.Car", b =>
                 {
                     b.Property<int>("CarId")
@@ -30,9 +142,8 @@ namespace MatricRides.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -65,19 +176,46 @@ namespace MatricRides.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Province")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Year")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CarId");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("HostId");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("MatricRides.Domain.Models.Client", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ClientId");
+
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("MatricRides.Domain.Models.Host", b =>
@@ -368,13 +506,32 @@ namespace MatricRides.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MatricRides.Domain.Models.Booking", b =>
+                {
+                    b.HasOne("MatricRides.Domain.Models.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("MatricRides.Domain.Models.Car", b =>
                 {
+                    b.HasOne("MatricRides.Domain.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MatricRides.Domain.Models.Host", null)
                         .WithMany("Cars")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("MatricRides.Domain.Models.Image", b =>

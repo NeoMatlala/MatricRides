@@ -161,20 +161,20 @@ namespace MatricRides.Application.Services.CarsService
                     car.HourlyRate = model.HourlyRate;
                 }
 
-                if (!string.IsNullOrEmpty(model.City))
-                {
-                    car.City = model.City;
-                }
+                //if (!string.IsNullOrEmpty(model.City))
+                //{
+                //    car.City = model.City;
+                //}
 
                 if (!string.IsNullOrEmpty(model.Descripion))
                 {
                     car.Descripion = model.Descripion;
                 }
 
-                if (!string.IsNullOrEmpty(model.Province))
-                {
-                    car.Province = model.Province;
-                }
+                //if (!string.IsNullOrEmpty(model.Province))
+                //{
+                //    car.Province = model.Province;
+                //}
 
                 _db.Cars.Update(car);
                 _db.SaveChanges();

@@ -23,7 +23,10 @@ export class CreateAccountModalComponent {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'client'
+    role: 'client',
+    ClientName: '',
+    ClientSurname: '',
+    ClientPhoneNumber: '',
   }
 
   constructor(private elementRef: ElementRef, private _userService: UserService) {}
@@ -51,6 +54,8 @@ export class CreateAccountModalComponent {
       if(response.isSuccess) {
         const createAccountModalmodal = new Modal(this.createAccountModal)
         createAccountModalmodal.hide();
+
+        this.openLoginModal()
       }
     },
     error =>{

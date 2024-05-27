@@ -1,4 +1,5 @@
 ﻿using MatricRides.Domain.DTOs;
+using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,14 @@ namespace MatricRides.Application.Services.UserService
         private IConfiguration _configuration;
         private UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _db;
 
-        public UserService(IConfiguration configuration, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserService(IConfiguration configuration, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext db)
         {
             _configuration = configuration;
             _userManager = userManager;
             _roleManager = roleManager;
+            _db = db;
         }
 
         public async Task<List<UserWithRoles>> GetALlUsersWithRolesAsync()
@@ -75,6 +78,22 @@ namespace MatricRides.Application.Services.UserService
 
                 // assign host role
                 await _userManager.AddToRoleAsync(identityUser, model.Role);
+
+                // if client - add name, email, surname, phone number to client table
+
+                if(model.Role == "client")
+                {
+                    var client = new Client
+                    {
+                        Name = model.ClientName,
+                        Surname = model.ClientSurname,
+                        Email = model.Email,
+                        PhoneNumber = model.ClientPhoneNumber
+                    };
+
+                    _db.Clients.Add(client);
+                    _db.SaveChanges();
+                }
 
 
                 return new UserManagerResponse

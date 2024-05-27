@@ -3,4 +3,5 @@ export class UpdateHostDto {
     surname: string = ''
     email: string = ''
     photo: any
+    formattedAddress?: string = ''
 }

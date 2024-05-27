@@ -28,7 +28,7 @@
                 </div>
                 <div>
                     <p class="font-medium text-sm mb-2">Car location</p>
-                    <div class="font-medium text-sm py-2 px-4 rouned-lg bg-slate-100">{{hostCar.city}}, {{hostCar.province}}</div>
+                    <div class="font-medium text-sm py-2 px-4 rouned-lg bg-slate-100">{{addressString}}</div>
                 </div>
             </div>
         </div>
@@ -40,4 +40,4 @@
 </div>
 
 <!-- modal -->
-<app-edit-profile [data]="host"></app-edit-profile>
+<app-edit-profile [data]="{host: host, addressId: hostCar.addressId, addressString}"></app-edit-profile>

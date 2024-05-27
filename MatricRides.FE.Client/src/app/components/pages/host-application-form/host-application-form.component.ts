@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { HostApplication } from '../../../models/host-application';
 import { FormsModule } from '@angular/forms';
 import { HostApplicationService } from '../../../services/host-application/host-application.service';
@@ -6,15 +6,22 @@ import { Modal } from 'flowbite';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { SearchCarAddressComponent } from '../../search-car-address/search-car-address.component';
 
 @Component({
   selector: 'app-host-application-form',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SearchCarAddressComponent],
   templateUrl: './host-application-form.component.html',
   styleUrl: './host-application-form.component.css'
 })
 export class HostApplicationFormComponent {
+  @ViewChild('inputField')
+  inputField!: ElementRef;
+
+  autocomplete: google.maps.places.Autocomplete | undefined;
+  @Input() placeholder = ''
+  
   host: HostApplication = {
     make: '',
     year: '',
@@ -28,7 +35,8 @@ export class HostApplicationFormComponent {
     surname: '',
     email: '',
     profilePicture: '',
-    carImages: []
+    carImages: [],
+    formattedAddress: ''
   }
 
   //formData: any = {};
@@ -51,6 +59,15 @@ export class HostApplicationFormComponent {
 
   ngAfterViewInit(): void {
     this.successModalElement = this.elementRef.nativeElement.querySelector('#success-modal')
+
+    this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement)
+
+    this.autocomplete.addListener('place_changed', () => {
+      const place = this.autocomplete?.getPlace();
+
+      this.host.formattedAddress = place?.formatted_address
+      // console.log(place)
+    })
   }
 
   onFileSelected(event: any, imageNumber: string) {
@@ -114,6 +131,7 @@ export class HostApplicationFormComponent {
       formData.append('fuelType', this.host.fuelType);
       formData.append('description', this.host.description);
       formData.append('hourlyRate', this.host.hourlyRate);
+      formData.append('formattedAddress', this.host.formattedAddress!);
       for(let i = 0; i < this.host.carImages.length;i++) {
         formData.append('carImages', this.host.carImages[i])
       }
@@ -140,6 +158,7 @@ export class HostApplicationFormComponent {
     } catch (error) {
       console.log("error submiting host application: ", error)
     }
+    //console.log(this.host.formattedAddress)
   }
 
   closeSuccessModal(): void {

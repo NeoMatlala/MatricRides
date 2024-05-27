@@ -1,4 +1,5 @@
-﻿using MatricRides.Domain.DTOs;
+﻿using MatricRides.Application.Services.HttpService;
+using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +15,16 @@ namespace MatricRides.Application.Services.HostService
     public class HostService : IHostService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IHttpService _httpService;
 
-        public HostService(ApplicationDbContext db)
+        public HostService(ApplicationDbContext db, IHttpService httpService)
         {
             _db = db;
+            _httpService = httpService;
         }
 
         // update host
-        public HostApprovalResponse UpdateHost(int id, UpdateHostDTO model, IFormFile? image)
+        public HostApprovalResponse UpdateHost(int id, int addressId, UpdateHostDTO model, IFormFile? image)
         {
             if(id == 0)
             {
@@ -73,6 +76,14 @@ namespace MatricRides.Application.Services.HostService
                 _db.Hosts.Update(host);
                 _db.SaveChanges();
 
+                // if address exists: send new formatted address with address ID
+                // parameters: addressID & formatted address
+
+                if(!string.IsNullOrEmpty(model.UpdatedFormattedAddress))
+                {
+                    HostApprovalResponse updateCarAddress = _httpService.UpdateCarAddress(addressId, model.UpdatedFormattedAddress).Result;
+                }
+
                 return new HostApprovalResponse
                 {
                     IsSuccess = true,
@@ -100,7 +111,10 @@ namespace MatricRides.Application.Services.HostService
         // Get host via ID with cars
         public Host GetCar(int id)
         {
-            var car = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images).FirstOrDefault(x => x.HostId == id);
+            var car = _db.Hosts
+                .Include(c => c.Cars).ThenInclude(i => i.Images)
+                .Include(c => c.Cars).ThenInclude(i => i.Address)
+                .FirstOrDefault(x => x.HostId == id);
 
             return car;
         }
@@ -125,7 +139,10 @@ namespace MatricRides.Application.Services.HostService
                 };
             }
 
-            var host = _db.Hosts.Include(c => c.Cars).ThenInclude(i => i.Images ).FirstOrDefault(c => c.Email == email);
+            var host = _db.Hosts
+                .Include(c => c.Cars).ThenInclude(i => i.Images )
+                .Include(c => c.Cars).ThenInclude(a => a.Address).
+                FirstOrDefault(c => c.Email == email);
 
             if (host == null)
             {

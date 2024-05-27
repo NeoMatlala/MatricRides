@@ -24,9 +24,16 @@ namespace MatricRides.Application.Services.SearchService
 
         public SearchResponse getCarsViaCity(string city)
         {
-            var cars = _db.Cars.Include(i => i.Images).Where(c => c.City == city).ToList();
+            var cars = _db.Cars
+                .Include(i => i.Images)
+                .Include(a => a.Address)
+                .Where(c => c.Address.City == city)
+                .ToList();
 
-            var allCars = _db.Cars.Include(i => i.Images).ToList();
+            var allCars = _db.Cars
+                .Include(i => i.Images)
+                .Include(a => a.Address)
+                .ToList();
 
             //if 
 
@@ -59,9 +66,17 @@ namespace MatricRides.Application.Services.SearchService
 
         public SearchResponse filterPriceHighToLow(string city)
         {
-            var cars = _db.Cars.Include(i => i.Images).Where(c => c.City == city).OrderByDescending(x => Convert.ToInt32(x.HourlyRate)).ToList();
+            var cars = _db.Cars
+                .Include(i => i.Images)
+                .Where(c => c.Address.City == city)
+                .OrderByDescending(x => Convert.ToInt32(x.HourlyRate))
+                .ToList();
             
-            var allCars = _db.Cars.Include(i => i.Images).OrderByDescending(x => Convert.ToInt32(x.HourlyRate)).ToList();
+            var allCars = _db.Cars
+                .Include(i => i.Images)
+                .Include(i => i.Address)
+                .OrderByDescending(x => Convert.ToInt32(x.HourlyRate))
+                .ToList();
 
             if(city == "all")
             {
@@ -92,9 +107,17 @@ namespace MatricRides.Application.Services.SearchService
 
         public SearchResponse filterAscendingHourlyRate(string city)
         {
-            var cars = _db.Cars.Include(i => i.Images).Where(c => c.City == city).OrderBy(x => Convert.ToInt32(x.HourlyRate)).ToList();
+            var cars = _db.Cars
+                .Include(i => i.Images)
+                .Where(c => c.Address.City == city)
+                .OrderBy(x => Convert.ToInt32(x.HourlyRate))
+                .ToList();
 
-            var allCars = _db.Cars.Include(i => i.Images).OrderBy(x => Convert.ToInt32(x.HourlyRate)).ToList();
+            var allCars = _db.Cars
+                .Include(i => i.Images)
+                .Include(i => i.Address)
+                .OrderBy(x => Convert.ToInt32(x.HourlyRate))
+                .ToList();
 
             if (city == "all")
             {
