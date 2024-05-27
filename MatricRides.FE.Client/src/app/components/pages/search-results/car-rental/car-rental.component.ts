@@ -36,6 +36,8 @@ export class CarRentalComponent {
   showLoginMessage: boolean = false
   isPickup: boolean = false
   isDelivery: boolean = true
+  totalCost: string | undefined
+  hours: any = 0
 
   editModalElement: HTMLElement | null = null;
   successModalElement: HTMLElement | null = null;
@@ -71,6 +73,8 @@ export class CarRentalComponent {
       this.booking.deliveryAddress = place?.formatted_address
       // console.log(place)
     })
+
+    this.totalCost = this.host.cars[0].hourlyRate 
   }
 
   ngOnInit() {
@@ -87,6 +91,42 @@ export class CarRentalComponent {
     }
 
     this.showLoginMessage = false
+  }
+
+  onBookingUntilChange(date:Date) {
+    if(!this.booking.from) {
+      console.log("From is not set")
+      return
+    }
+
+    // need to get the until value via days as well...
+
+    // const from = this.booking.from?.getHours()
+    // const dateTime = date.getHours()
+
+    // const difference = dateTime - from
+    // console.log(`${dateTime} - ${from} = ${difference}` )
+
+    // const total = difference * this.host.cars[0].hourlyRate
+    // this.hours = difference
+
+    // console.log(`Total: ${total}` )
+
+    // this.totalCost = total.toString()
+    const date1: Date = new Date(this.booking.from)
+    const date2: Date = new Date(this.booking.until!)
+
+    const diffInMs: number = date2.getTime() - date1.getTime()
+
+    const diffInHours: number = diffInMs / (1000 * 60 * 60);
+
+    //console.log(`Difference in hours: ${diffInHours.toFixed(2)} hours`);
+
+    this.hours = diffInHours.toFixed(2)
+
+    const total = this.hours * this.host.cars[0].hourlyRate
+
+    this.totalCost = total.toString()
   }
 
   fetchCar() {
@@ -147,11 +187,18 @@ export class CarRentalComponent {
    }
 
   bookCar() {
-    // client data --- use loggedIn user email, send that to API for client data.
-
     this.booking.clientEmail = localStorage.getItem('userEmail')!
     this.booking.carId = this.host.cars[0].carId
-    this.booking.cost = '3000'
+
+    
+
+    // PICKUP COSTS
+    // until - from time. That value x hourlyRate
+    // have a show cost - once calculation is done show price section (*NgIF=priceCalculated)
+
+    this.booking.cost = this.totalCost
+
+    //console.log(this.booking)
 
     try {
       this._bookingService.makeBooking(this.booking).subscribe((response: any) => {
