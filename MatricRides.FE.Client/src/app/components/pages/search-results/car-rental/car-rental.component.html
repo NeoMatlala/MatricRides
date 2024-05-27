@@ -115,21 +115,6 @@
                 </div>
 
               </div>
-                <!-- <div class="w-full">
-                  <label for="base-input" class="block mb-2 text-[#0254AB] text-sm font-medium">From</label>
-                  <p-calendar 
-                    inputId="calendar-24h" 
-                    [(ngModel)]="booking.from" 
-                    [showTime]="true"/>
-                </div>
-            
-                <div class="w-full mt-3">
-                  <label for="base-input" class="block mb-2 text-sm text-[#0254AB] font-medium">Until</label>
-                  <p-calendar 
-                    inputId="calendar-24h" 
-                    [(ngModel)]="booking.until" 
-                    [showTime]="true"/>
-                </div> -->
             </div>
             <hr class="bg-slate-400 my-5">
             <button (click)="showModal()" class="text-white bg-[#0254AB] px-7 py-2.5 flex justify-center items-center gap-x-3 w-full">
@@ -175,26 +160,20 @@
               <div>
                 <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">From</label>
                 <p-calendar 
-                    inputId="calendar-24h" 
-                    [(ngModel)]="booking.from" 
-                    [showTime]="true"
-                    name="bookingFrom"/>
-            </div>  
-            <div>
-                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Until</label>
-                <p-calendar 
+                  inputId="calendar-24h" 
+                  [(ngModel)]="booking.from" 
+                  [showTime]="true"
+                  name="bookingFrom"/>
+              </div>
+              <div>
+                  <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Until</label>
+                  <p-calendar 
                     inputId="calendar-24h" 
                     [(ngModel)]="booking.until"
-                    [showTime]="true" name="bookingUntil"/>
-            </div>  
-                <!-- <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                    <input  name="make" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-                </div>
-                <div>
-                    <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 ">Surname</label>
-                    <input type="text" id="last_name" name="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe" />
-                </div> -->
+                    [showTime]="true"
+                    name="bookingUntil"
+                    (ngModelChange)="onBookingUntilChange($event)"/>
+              </div>  
                 <div>
                     <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">ID Number</label>
                     <input type="text" name="year" [(ngModel)]="booking.clientIDNumber"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
@@ -229,10 +208,10 @@
 
               <div class="mt-10 space-y-3">
                 <div class="flex justify-between items-center">
-                  <p>R 3699 x 24 hours</p>
-                  <p>R 5000</p>
+                  <p>R {{host.cars[0].hourlyRate}} x {{hours}} hours</p>
+                  <p>R {{totalCost}}</p>
                 </div>
-                <div class="flex justify-between items-center">
+                <div *ngIf="isDelivery" class="flex justify-between items-center">
                   <p>Delivery fee</p>
                   <p>R 5000</p>
                 </div>
@@ -240,7 +219,7 @@
               <hr class="bg-slate-400 my-5">
               <div class="flex justify-between items-center font-medium text-lg">
                 <p>Total</p>
-                <p>R 5000</p>
+                <p>R {{totalCost}}</p>
               </div>
             </div>
             
