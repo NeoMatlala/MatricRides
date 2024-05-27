@@ -17,15 +17,15 @@ namespace MatricRides.WebAPI.Controllers
         }
 
         // update host
-        [HttpPut("upate-host-details/{id}")]
-        public IActionResult UpdateHost(int id, [FromForm] UpdateHostDTO model, IFormFile? image)
+        [HttpPut("upate-host-details/{id}/{addressId}")]
+        public IActionResult UpdateHost(int id, int addressId, [FromForm] UpdateHostDTO model, IFormFile? image)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = _hostService.UpdateHost(id, model, image);
+            var result = _hostService.UpdateHost(id, addressId, model, image);
 
             return Ok(result);
         }

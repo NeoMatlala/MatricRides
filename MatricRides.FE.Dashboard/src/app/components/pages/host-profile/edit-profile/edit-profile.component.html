@@ -16,34 +16,41 @@
             </div>
             <!-- Modal body -->
             <form (ngSubmit)="updateHostDetails()" >
-                <div class="p-4 grid grid-cols-2 gap-5 md:p-5">
+                <div class="p-4 md:p-5">
                     <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
-                        <input [(ngModel)]="host.name" [value]="data.name" name="name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 ">Car location</label>
+                        <input name="address" [placeholder]="placeholder" #inputField [(ngModel)]="host.formattedAddress" [value]="data.addressString" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                     </div>
-                    <div>
-                        <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 ">Surname</label>
-                        <input [(ngModel)]="host.surname" type="text" id="last_name" name="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" [value]="data.surname" placeholder="Doe" />
-                    </div>
-                    <div>
-                        <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                        <input type="email" [(ngModel)]="host.email" name="email" [value]="data.email" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
-                    </div>  
-                    <div>
-                        <label for="company" class="block mb-3 text-sm font-medium text-gray-900 ">Profile image</label>
-                        <div class="flex justify-start items-center gap-5">
-                            <!--  -->
-                            <div *ngIf="uploadedImageUrl; else elseBlock">
-                                <img class="w-12 h-12 rounded-full" [src]="uploadedImageUrl" alt="Rounded avatar">
-                            </div>
-                            <ng-template #elseBlock>
-                                <img  *ngIf="data.profilePicture" class="w-12 h-12 rounded-full" [src]="'data:image/jpeg;base64,' + data.profilePicture" alt="Rounded avatar">
-                            </ng-template>
-                            
-                            <label  for="update-profile-pic" class="text-sm font-medium text-blue-600">Update profile picture</label>
-                            <input (change)="onFileSelected($event, 'profileImage')" accept="image/*" type="file"  name="profilePic" id="update-profile-pic" class="hidden" />
+                    <div class="grid grid-cols-2 gap-5 mt-5">
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
+                            <input [(ngModel)]="host.name" [value]="data.host.name" name="name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                         </div>
-                    </div> 
+                        <div>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 ">Surname</label>
+                            <input [(ngModel)]="host.surname" type="text" id="last_name" name="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" [value]="data.host.surname" placeholder="Doe" />
+                        </div>
+                        <div>
+                            <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
+                            <input type="email" [(ngModel)]="host.email" name="email" [value]="data.host.email" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                        </div>  
+                        <div>
+                            <label for="company" class="block mb-3 text-sm font-medium text-gray-900 ">Profile image</label>
+                            <div class="flex justify-start items-center gap-5">
+                                <!--  -->
+                                <div *ngIf="uploadedImageUrl; else elseBlock">
+                                    <img class="w-12 h-12 rounded-full" [src]="uploadedImageUrl" alt="Rounded avatar">
+                                </div>
+                                <ng-template #elseBlock>
+                                    <img  *ngIf="data.host.profilePicture" class="w-12 h-12 rounded-full" [src]="'data:image/jpeg;base64,' + data.host.profilePicture" alt="Rounded avatar">
+                                </ng-template>
+                                
+                                <label  for="update-profile-pic" class="text-sm font-medium text-blue-600">Update profile picture</label>
+                                <input (change)="onFileSelected($event, 'profileImage')" accept="image/*" type="file"  name="profilePic" id="update-profile-pic" class="hidden" />
+                            </div>
+                        </div> 
+                    </div>
+                    
                 </div>
                  
 

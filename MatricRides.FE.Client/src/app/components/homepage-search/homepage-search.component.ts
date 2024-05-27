@@ -23,15 +23,12 @@ export class HomepageSearchComponent {
     initFlowbite();
   }
 
-  searchCars(city: string){
-    this.router.navigate(['/results', city])
-    // try {
-    //   this.searchService.searchCars(city).subscribe((response:any) => {
-    //     console.log(response)
-    //   })
-    // } catch (error) {
-    //   console.log("Error searching for cars: ", error)
-    // }
+  searchCars(city: string) {
+    if(city === '') {
+      this.router.navigate(['/results', "all"])
+    } else {
+      this.router.navigate(['/results', city])
+    }
   }
 
   initDatePicker() : void {

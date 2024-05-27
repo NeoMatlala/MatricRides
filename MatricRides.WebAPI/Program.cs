@@ -1,7 +1,10 @@
+using MatricRides.Application.Services.BookingService;
 using MatricRides.Application.Services.CarsService;
+using MatricRides.Application.Services.ClientService;
 using MatricRides.Application.Services.ContactUsService;
 using MatricRides.Application.Services.HostApprovalService;
 using MatricRides.Application.Services.HostService;
+using MatricRides.Application.Services.HttpService;
 using MatricRides.Application.Services.SearchService;
 using MatricRides.Application.Services.UserService;
 using MatricRides.Infrastructure.Data;
@@ -65,6 +68,11 @@ builder.Services.AddScoped<IHostService, HostService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IContactUsService, ContactUsService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+
+//builder.Services.AddHttpClient<HostApprovalService>();
+builder.Services.AddHttpClient<IHttpService, HttpService>();
 
 var app = builder.Build();
 

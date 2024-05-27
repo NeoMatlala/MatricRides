@@ -28,6 +28,7 @@ export class ResultsComponent {
   relevant: boolean = false
   descending: boolean = false
   ascending: boolean = false
+  addressString: string = ''
 
   constructor(private carService: CarService, private searchService: SearchService, private router: Router, private route: ActivatedRoute,) {
     this.route.params.subscribe(params => {
@@ -52,6 +53,8 @@ export class ResultsComponent {
 
         this.cars = response.cars
         this.searchH1 = response.message
+
+        //console.log(this.cars)
       })
     } catch (error) {
       console.log("Error getting cars:", error)

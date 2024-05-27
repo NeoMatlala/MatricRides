@@ -10,6 +10,7 @@ namespace MatricRides.Domain.Models
     {
         public int CarId { get; set; }
         public int HostId { get; set; }
+        public int AddressId { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public string Year { get; set; }
@@ -18,9 +19,8 @@ namespace MatricRides.Domain.Models
         public string FuelType { get; set; }
         public string Descripion { get; set; }
         public string HourlyRate { get; set; }
-        public string City { get; set; }
-        public string Province { get; set; }
 
         public List<Image> Images { get; set; }
+        public Address Address { get; set; }
     }
 }

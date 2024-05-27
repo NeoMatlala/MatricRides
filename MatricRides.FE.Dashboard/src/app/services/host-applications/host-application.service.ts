@@ -33,7 +33,7 @@ export class HostApplicationService {
   }
 
   // upate-host
-  public updateHost(hostId:number, host: any): Observable<any> {
-    return this.http.put<any>(`https://localhost:7101/api/Host/upate-host-details/${hostId}`, host)
+  public updateHost(hostId:number, addressId: number, host: any): Observable<any> {
+    return this.http.put<any>(`https://localhost:7101/api/Host/upate-host-details/${hostId}/${addressId}`, host)
   }
 }

@@ -15,7 +15,7 @@ export class ViewCarComponent {
 
   carObj: any = {}
   imageSrc: string[] = []
-
+  addressString: string = ''
   editModalElement: HTMLElement | null = null;
 
   constructor(private route: ActivatedRoute, private elementRef: ElementRef) {
@@ -32,7 +32,14 @@ export class ViewCarComponent {
   ngOnInit() {
     this.processImages(this.carObj.images)
     console.log(this.carObj)
+    this.sortAddress(this.carObj.address)
   }
+
+  sortAddress(address:any) {
+    this.addressString = `${address.streetNumber} ${address.streetName}, ${address.city}, ${address.province}`
+  
+    return this.addressString
+   }
 
   processImages(images: any[]): void {
     images.forEach(image => {

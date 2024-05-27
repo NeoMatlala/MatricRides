@@ -12,4 +12,5 @@ export class HostApplication{
     email: string = ''
     profilePicture: any = ''
     carImages: any = []
+    formattedAddress?: string = ''
   }

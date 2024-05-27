@@ -18,6 +18,6 @@ namespace MatricRides.Application.Services.HostService
 
         HostApprovalResponse GetHostViaID(int id);
 
-        HostApprovalResponse UpdateHost(int id, UpdateHostDTO model, IFormFile? image);
+        HostApprovalResponse UpdateHost(int id, int addressId, UpdateHostDTO model, IFormFile? image);
     }
 }

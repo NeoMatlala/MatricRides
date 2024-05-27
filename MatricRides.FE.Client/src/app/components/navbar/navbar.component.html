@@ -64,7 +64,7 @@
             </li>
         </ul>
 
-        <ul class="flex justify-end items-center gap-x-6 font-medium">
+        <ul class="flex justify-end items-center gap-x-6 font-medium" *ngIf="showLoginMenu">
             <li>
                 <a routerLink="/host-application-form" class="underline underline-offset-4">Become a Host</a>
             </li>
@@ -72,6 +72,23 @@
                 <button (click)="showLoginModal()" class="text-white bg-[#1A1E23] px-7 py-2.5">Login</button>
             </li>
         </ul>
+
+        <div *ngIf="!showLoginMenu" class="relative">
+            <svg (click)="showDropdownMenu()"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+            </svg> 
+
+            <ul *ngIf="menuToggle" class="flex flex-col items-start justify-start w-56 z-50 rounded-md gap-6 font-medium bg-white absolute top-10 right-10 p-5">
+                <li>
+                    <a class="underline underline-offset-4">My bookings</a>             
+                </li>
+                <li>
+                    <a (click)="logout()" class="underline underline-offset-4">logout</a>             
+                </li>
+            </ul>
+        </div>
+
+        
     </div>
   </nav>
   

@@ -74,11 +74,11 @@
                     </svg>
                     <p class="text-slate-700 text-xl">{{host.cars[0].color}}</p>
                 </div>
-                <div class="flex items-center justify-start gap-2">
+                <div class="flex items-start justify-start gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="30px" height="30px" class="bi bi-geo-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.3 1.3 0 0 0-.37.265.3.3 0 0 0-.057.09V14l.002.008.016.033a.6.6 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.6.6 0 0 0 .146-.15l.015-.033L12 14v-.004a.3.3 0 0 0-.057-.09 1.3 1.3 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465s-2.462-.172-3.34-.465c-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411"/>
                 </svg>
-                    <p class="text-slate-700 text-xl">{{host.cars[0].city}}, {{host.cars[0].province}}</p>
+                    <p class="text-slate-700 text-xl">{{addressString}}</p>
                 </div>
             </div>
 
@@ -103,61 +103,153 @@
             <h5 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">R {{host.cars[0].hourlyRate}} <span class="text-slate-400 text-sm font-normal">per hour</span></h5>
             <hr class="bg-slate-400 my-5">
             <div>
-                <div class="w-full">
-                    <label for="base-input" class="block mb-2 text-[#0254AB] text-sm font-medium">From</label>
-                    <div class="flex justify-between items-center gap-x-0.5">
-                      <div class="relative w-full">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                          <svg class="w-4 h-4 text-gray-500 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                          </svg>
-                        </div>
-                        <input id="datepickerId" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date">
-                      </div>
-              
-                      
-                      <div class="relative">
-                        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 cursor-pointer">
-                            <!-- <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
-                            </svg> -->
-                        </div>
-                        <input type="time" id="time" class="bg-gray-50 cursor-pointer border leading-none border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min="09:00" max="18:00" value="00:00" required />
-                      </div>
-                    </div>
-                  </div>
-              
-                  <div class="w-full mt-3">
-                    <label for="base-input" class="block mb-2 text-sm text-[#0254AB] font-medium">Until</label>
-                    <div class="flex justify-between items-center gap-x-0.5">
-                      <div class="relative w-full">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                          <svg class="w-4 h-4 text-gray-500 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                          </svg>
-                        </div>
-                        <input  id="untilDatePicker" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date">
-                      </div>
-              
-                      
-                      <div class="relative">
-                        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 cursor-pointer">
-                            <!-- <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
-                            </svg> -->
-                        </div>
-                        <input type="time" id="time" class="bg-gray-50 cursor-pointer border leading-none border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min="09:00" max="18:00" value="00:00" required />
-                      </div>
-                    </div>
-                  </div>
+              <div class="flex justify-between items-center mb-5 gap-5">
+                
+                <div class="flex w-1/2 items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                  <input (click)="pickupSelected()" id="bordered-radio-1" type="radio" value="" name="bordered-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600">
+                  <label for="bordered-radio-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Will go collect</label>
+                </div>
+                <div class="flex w-1/2 items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                  <input (click)="deliverySelected()" checked id="bordered-radio-2" type="radio" value="" name="bordered-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600">
+                  <label for="bordered-radio-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Have car delivered</label>
+                </div>
+
+              </div>
+                <!-- <div class="w-full">
+                  <label for="base-input" class="block mb-2 text-[#0254AB] text-sm font-medium">From</label>
+                  <p-calendar 
+                    inputId="calendar-24h" 
+                    [(ngModel)]="booking.from" 
+                    [showTime]="true"/>
+                </div>
+            
+                <div class="w-full mt-3">
+                  <label for="base-input" class="block mb-2 text-sm text-[#0254AB] font-medium">Until</label>
+                  <p-calendar 
+                    inputId="calendar-24h" 
+                    [(ngModel)]="booking.until" 
+                    [showTime]="true"/>
+                </div> -->
             </div>
             <hr class="bg-slate-400 my-5">
-            <button class="text-white bg-[#0254AB] px-7 py-2.5 flex justify-center items-center gap-x-3 w-full">
+            <button (click)="showModal()" class="text-white bg-[#0254AB] px-7 py-2.5 flex justify-center items-center gap-x-3 w-full">
                 Continue
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                 </svg>        
               </button>
+
+              <div *ngIf="showLoginMessage" class="flex items-center p-4 mt-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  <span class="font-medium">Please login first before you continue.</span>
+                </div>
+              </div>
         </div>
     </div>
 </div>
+
+<!-- modal: more info -->
+<div id="car-edit-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative p-4 w-full max-w-4xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+              <h3 class="text-3xl font-semibold text-gray-900">
+                  One last step ...
+              </h3>
+              <button (click)="closeProfileModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+              </button>
+          </div>
+          <!-- Modal body -->
+          <form>
+            <div class="p-4 grid grid-cols-2 gap-5 md:p-5">
+              <div>
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">From</label>
+                <p-calendar 
+                    inputId="calendar-24h" 
+                    [(ngModel)]="booking.from" 
+                    [showTime]="true"
+                    name="bookingFrom"/>
+            </div>  
+            <div>
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Until</label>
+                <p-calendar 
+                    inputId="calendar-24h" 
+                    [(ngModel)]="booking.until"
+                    [showTime]="true" name="bookingUntil"/>
+            </div>  
+                <!-- <div>
+                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+                    <input  name="make" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                </div>
+                <div>
+                    <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 ">Surname</label>
+                    <input type="text" id="last_name" name="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe" />
+                </div> -->
+                <div>
+                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">ID Number</label>
+                    <input type="text" name="year" [(ngModel)]="booking.clientIDNumber"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                </div>  
+                <!-- <div>
+                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Phone number</label>
+                    <input type="text" name="color"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                </div>   -->
+                <!-- <div>
+                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Email Address</label>
+                    <input type="text" name="doors"   id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                </div>   -->
+                <div>
+                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">School</label>
+                    <input type="text" name="fuelType" [(ngModel)]="booking.school" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                </div>  
+                <div *ngIf="isDelivery">
+                    <label for="deliveryAddress" class="block mb-2 text-sm font-medium text-gray-900 ">Delivery Address</label>
+                    <input type="text" [placeholder]="placeholder" #inputField [(ngModel)]="booking.deliveryAddress" name="deliveryAddress"  id="deliveryAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                </div>  
+                 
+            </div>
+
+            <div class="p-4 md:p-5 pt-0">
+              <hr class="bg-slate-400 my-5">
+              <a (click)="bookCar()" class="text-white bg-[#0254AB] px-7 py-2.5 flex justify-center items-center gap-x-3 w-full hover:cursor-pointer">
+                Send booking application
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>        
+              </a>
+
+              <div class="mt-10 space-y-3">
+                <div class="flex justify-between items-center">
+                  <p>R 3699 x 24 hours</p>
+                  <p>R 5000</p>
+                </div>
+                <div class="flex justify-between items-center">
+                  <p>Delivery fee</p>
+                  <p>R 5000</p>
+                </div>
+              </div>
+              <hr class="bg-slate-400 my-5">
+              <div class="flex justify-between items-center font-medium text-lg">
+                <p>Total</p>
+                <p>R 5000</p>
+              </div>
+            </div>
+            
+          </form>
+          
+      </div>
+  </div>
+</div>
+
+<!-- success modal -->
+<app-booking-success-modal></app-booking-success-modal>
+  

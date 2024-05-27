@@ -13,6 +13,7 @@ namespace MatricRides.Domain.DTOs
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Email { get; set; }
+        public string? UpdatedFormattedAddress { get; set; }
 
         [Column(TypeName = "Image")]
         public byte[]? ProfilePicture { get; set; }

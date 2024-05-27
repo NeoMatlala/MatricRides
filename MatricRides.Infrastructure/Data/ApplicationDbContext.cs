@@ -19,6 +19,9 @@ namespace MatricRides.Infrastructure.Data
         // DB Sets
         public DbSet<Message> Messages { get; set; }
         public DbSet<Host> Hosts { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Image> Images { get; set; }
     }

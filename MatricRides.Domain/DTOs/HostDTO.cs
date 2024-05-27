@@ -29,7 +29,7 @@ namespace MatricRides.Domain.DTOs
         public string Description { get; set; }
         public string HourlyRate { get; set; }
 
-        
+        public string? FormattedAddress { get; set; }
 
         //[JsonIgnore]
         //public List<Image> CarImages { get; set; }

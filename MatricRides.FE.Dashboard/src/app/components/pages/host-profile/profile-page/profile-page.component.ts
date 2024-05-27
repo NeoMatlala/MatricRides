@@ -18,6 +18,8 @@ export class ProfilePageComponent {
   hostEmail: string= ''
   profilePic = ''
   hostCar: any = {}
+  addressObject: any = {}
+  addressString: string = ''
 
   editModalElement: HTMLElement | null = null;
 
@@ -36,13 +38,21 @@ export class ProfilePageComponent {
       this._hostService.getHost(this.hostEmail).subscribe((response: any) => {
         this.host = response.hostObj
         this.hostCar = response.hostObj.cars[0]
-        //console.log(this.host)
+        this.addressObject = this.hostCar.address
+        this.sortAddress(this.addressObject)
+        console.log(this.host)
 
         this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
       })
     } catch (error) {
       console.log("Error getting service: ", error)
     }
+ }
+
+ sortAddress(address:any) {
+  this.addressString = `${address.streetNumber} ${address.streetName}, ${address.city}, ${address.province}`
+
+  return this.addressString
  }
 
  openProfileModal() {
