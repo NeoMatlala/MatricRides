@@ -178,14 +178,6 @@
                     <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">ID Number</label>
                     <input type="text" name="year" [(ngModel)]="booking.clientIDNumber"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
                 </div>  
-                <!-- <div>
-                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Phone number</label>
-                    <input type="text" name="color"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
-                </div>   -->
-                <!-- <div>
-                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Email Address</label>
-                    <input type="text" name="doors"   id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
-                </div>   -->
                 <div>
                     <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">School</label>
                     <input type="text" name="fuelType" [(ngModel)]="booking.school" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
@@ -194,10 +186,19 @@
                     <label for="deliveryAddress" class="block mb-2 text-sm font-medium text-gray-900 ">Delivery Address</label>
                     <input type="text" [placeholder]="placeholder" #inputField [(ngModel)]="booking.deliveryAddress" name="deliveryAddress"  id="deliveryAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                 </div>  
-                 
             </div>
 
-            <div class="p-4 md:p-5 pt-0">
+            <div *ngIf="!showCost" class="p-4 md:p-5 pt-0">
+              <hr class="bg-slate-400 my-5">
+              <a (click)="calculateCosts()" class="text-white bg-[#0254AB] px-7 py-2.5 flex justify-center items-center gap-x-3 w-full hover:cursor-pointer">
+                Calculate cost(s)
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>        
+              </a>
+            </div>
+
+            <div *ngIf="showCost" class="p-4 md:p-5 pt-0">
               <hr class="bg-slate-400 my-5">
               <a (click)="bookCar()" class="text-white bg-[#0254AB] px-7 py-2.5 flex justify-center items-center gap-x-3 w-full hover:cursor-pointer">
                 Send booking application
@@ -212,14 +213,14 @@
                   <p>R {{totalCost}}</p>
                 </div>
                 <div *ngIf="isDelivery" class="flex justify-between items-center">
-                  <p>Delivery fee</p>
-                  <p>R 5000</p>
+                  <p>Delivery fee: R{{costPerKilometer}} x {{distance}}</p>
+                  <p>R {{deliveryTotal}}</p>
                 </div>
               </div>
               <hr class="bg-slate-400 my-5">
               <div class="flex justify-between items-center font-medium text-lg">
                 <p>Total</p>
-                <p>R {{totalCost}}</p>
+                <p>R {{invoiceTotal}}</p>
               </div>
             </div>
             
