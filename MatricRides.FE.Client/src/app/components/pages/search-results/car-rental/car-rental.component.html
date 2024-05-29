@@ -164,6 +164,8 @@
                   [(ngModel)]="booking.from" 
                   [showTime]="true"
                   name="bookingFrom"/>
+                  <small class="text-slate-500 block text-xs font-light mt-2">DD/MM/YYY HH:MM</small>
+                  <small *ngIf="showFromError" class="text-red-600 block text-xs mt-2">Please add from date & time</small>
               </div>
               <div>
                   <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">Until</label>
@@ -173,19 +175,24 @@
                     [showTime]="true"
                     name="bookingUntil"
                     (ngModelChange)="onBookingUntilChange($event)"/>
+                    <small class="text-slate-500 block text-xs font-light mt-2">DD/MM/YYY HH:MM</small>
+                    <small *ngIf="showUntilError" class="text-red-600 block text-xs mt-2">Please add until date & time</small>
               </div>  
-                <div>
-                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">ID Number</label>
-                    <input type="text" name="year" [(ngModel)]="booking.clientIDNumber"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
-                </div>  
-                <div>
-                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">School</label>
-                    <input type="text" name="fuelType" [(ngModel)]="booking.school" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
-                </div>  
-                <div *ngIf="isDelivery">
-                    <label for="deliveryAddress" class="block mb-2 text-sm font-medium text-gray-900 ">Delivery Address</label>
-                    <input type="text" [placeholder]="placeholder" #inputField [(ngModel)]="booking.deliveryAddress" name="deliveryAddress"  id="deliveryAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-                </div>  
+              <div>
+                  <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">ID Number</label>
+                  <input type="text" name="year" [(ngModel)]="booking.clientIDNumber"  id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                  <small *ngIf="showIDNumberError" class="text-red-600 block text-xs mt-2">Please add ID Number</small>
+              </div>  
+              <div>
+                  <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">School</label>
+                  <input type="text" name="fuelType" [(ngModel)]="booking.school" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Flowbite" />
+                  <small *ngIf="showSchoolError" class="text-red-600 block text-xs mt-2">Please add school name</small>
+              </div>  
+              <div *ngIf="isDelivery">
+                  <label for="deliveryAddress" class="block mb-2 text-sm font-medium text-gray-900 ">Delivery Address</label>
+                  <input type="text" [placeholder]="placeholder" #inputField [(ngModel)]="booking.deliveryAddress" name="deliveryAddress"  id="deliveryAddress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                  <small *ngIf="showDeliveryAddressError" class="text-red-600 block text-xs mt-2">Please add a delivery address</small>
+              </div>  
             </div>
 
             <div *ngIf="!showCost" class="p-4 md:p-5 pt-0">

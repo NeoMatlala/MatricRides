@@ -25,19 +25,11 @@ namespace MatricRides.Application.Services.BookingService
             _httpService = httpService;
         }
 
-        // 1st TODO: CREATE SIMPLE booking from API 
+        
         public BookingResponse CreateBooking(BookingDTO bookingModel)
         {
             
             var clientId = _clientService.GetClientIdViaEmail(bookingModel.ClientEmail);
-
-            // TODO: costs
-            // if PICKUP: until - from = int... multiply by hourly rate
-
-            // if DELIVERY  : until - from = int... multiply by hourly rate + DISTANCANCE CALUCALTOR() - DO THIS ON NEW BRANCH.
-
-
-            // if isDelivery: calculate cost on API with addresses
 
             // booking details
             var booking = new Booking
