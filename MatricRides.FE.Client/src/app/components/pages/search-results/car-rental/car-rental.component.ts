@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { BookingDto } from '../../../../models/bookingDto';
 import { BookingService } from '../../../../services/booking/booking.service';
+import { HttpClient } from '@angular/common/http';
 
 //declare var Datepicker: any;
 
@@ -52,8 +53,17 @@ export class CarRentalComponent {
   @Input() placeholder = ''
 
   booking: BookingDto = {}
+  showCost: boolean = false
 
-  constructor(private _carService: CarService, private _bookingService: BookingService, private router: ActivatedRoute, private elementRef: ElementRef) {
+  // for delivery 
+  carAddress: string | undefined
+  clientAddress: string | undefined
+  distance: string | undefined
+  deliveryTotal: number = 0
+  costPerKilometer = 3
+  invoiceTotal: string | undefined
+
+  constructor(private _carService: CarService, private _bookingService: BookingService, private router: ActivatedRoute, private elementRef: ElementRef, private http: HttpClient) {
     this.router.params.subscribe(params => {
       this.hostId = params['id']
       this.make = params['imake']
@@ -129,6 +139,71 @@ export class CarRentalComponent {
     this.totalCost = total.toString()
   }
 
+  async calculateCosts() {
+    this.showCost = true
+
+    if(this.booking.deliveryAddress) {
+      this.clientAddress = this.booking.deliveryAddress
+      this.distance = await this.calculateDeliveryDistance(this.carAddress!, this.clientAddress)
+
+      //console.log(`Distance yela ke = ${this.distance} makgowa`)
+
+      if(this.distance !== undefined) {
+        const totalCost = this.costPerKilometer * parseFloat(this.distance.replace(/[^\d.]/g, ''))
+
+        this.deliveryTotal = parseFloat(totalCost.toFixed(2))
+      }
+    }
+
+    this.invoiceTotal = this.bookingTotal(this.totalCost, this.deliveryTotal)
+  }
+  
+  bookingTotal(bookingFee:any, deliveryFee?: number): string {
+    
+    if(deliveryFee) {
+      const sum = parseFloat(bookingFee) + deliveryFee
+      return (sum.toFixed(2)).toString()
+    } else {
+      return bookingFee
+    }
+  }
+
+  async calculateDeliveryDistance(origin: string, destination: string) {
+    const service = new google.maps.DistanceMatrixService()
+
+    const request = {
+      origins: [origin],
+      destinations: [destination],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false,
+    };
+    // service.getDistanceMatrix(request).then((response) => {
+    //   //console.log(response)
+    //   //console.log(response.rows[0].elements[0].distance.text)
+    //   distance = response.rows[0].elements[0].distance.text
+    // })
+
+    const response = await new Promise<any>((resolve, reject) => {
+      service.getDistanceMatrix(request, (response, status) => {
+        if (status === google.maps.DistanceMatrixStatus.OK) {
+          resolve(response)
+        } else {
+          reject(status)
+        }
+      })
+    })
+
+    return response.rows[0].elements[0].distance.text
+  }
+
+  formatCarAddress(address: any) {
+    this.carAddress = `${address.streetNumber} ${address.streetName}, ${address.city}, ${address.province}, ${address.country}, ${address.postalCode}`
+
+    return this.carAddress
+  }
+
   fetchCar() {
     try {
       this._carService.getCar(this.hostId, this.make, this.year).subscribe((response:any) => {
@@ -138,9 +213,9 @@ export class CarRentalComponent {
         this.profilePic = 'data:image/jpeg;base64,' + this.host.profilePicture;
 
         this.sortAddress(this.host.cars[0].address)
+        this.formatCarAddress(this.host.cars[0].address)
 
         console.log(this.host)
-        
       })
     } catch (error) {
       console.log("Error fetching car:", error)
@@ -196,7 +271,7 @@ export class CarRentalComponent {
     // until - from time. That value x hourlyRate
     // have a show cost - once calculation is done show price section (*NgIF=priceCalculated)
 
-    this.booking.cost = this.totalCost
+    this.booking.cost = this.invoiceTotal
 
     //console.log(this.booking)
 
