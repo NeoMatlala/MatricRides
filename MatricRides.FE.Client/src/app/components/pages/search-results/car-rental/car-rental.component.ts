@@ -63,6 +63,13 @@ export class CarRentalComponent {
   costPerKilometer = 3
   invoiceTotal: string | undefined
 
+  // validation
+  showFromError: boolean = false
+  showUntilError: boolean = false
+  showIDNumberError: boolean = false
+  showSchoolError: boolean = false
+  showDeliveryAddressError: boolean = false
+
   constructor(private _carService: CarService, private _bookingService: BookingService, private router: ActivatedRoute, private elementRef: ElementRef, private http: HttpClient) {
     this.router.params.subscribe(params => {
       this.hostId = params['id']
@@ -140,7 +147,48 @@ export class CarRentalComponent {
   }
 
   async calculateCosts() {
-    this.showCost = true
+    this.showCost = false;
+
+    // validation
+    if(!this.booking.from) {
+      this.showFromError = true
+    } else {
+      this.showFromError = false
+    }
+
+    if(!this.booking.until) {
+      this.showUntilError = true
+    } else {
+      this.showUntilError = false
+    }
+
+    if(!this.booking.clientIDNumber) {
+      this.showIDNumberError = true
+    } else {
+      this.showIDNumberError = false
+    }
+
+    if(!this.booking.school) {
+      this.showSchoolError = true
+    } else {
+      this.showSchoolError = false
+    }
+
+    if(this.isDelivery) {
+      if(!this.booking.deliveryAddress) {
+        this.showDeliveryAddressError = true
+      } else {
+        this.showDeliveryAddressError = false
+      }
+    }
+
+    if (!this.showFromError &&
+        !this.showUntilError &&
+        !this.showIDNumberError &&
+        !this.showSchoolError &&
+        (!this.isDelivery || !this.showDeliveryAddressError)) {
+      this.showCost = true;
+    }
 
     if(this.booking.deliveryAddress) {
       this.clientAddress = this.booking.deliveryAddress
@@ -179,11 +227,6 @@ export class CarRentalComponent {
       avoidHighways: false,
       avoidTolls: false,
     };
-    // service.getDistanceMatrix(request).then((response) => {
-    //   //console.log(response)
-    //   //console.log(response.rows[0].elements[0].distance.text)
-    //   distance = response.rows[0].elements[0].distance.text
-    // })
 
     const response = await new Promise<any>((resolve, reject) => {
       service.getDistanceMatrix(request, (response, status) => {
@@ -265,16 +308,10 @@ export class CarRentalComponent {
     this.booking.clientEmail = localStorage.getItem('userEmail')!
     this.booking.carId = this.host.cars[0].carId
 
-    
-
-    // PICKUP COSTS
-    // until - from time. That value x hourlyRate
-    // have a show cost - once calculation is done show price section (*NgIF=priceCalculated)
-
     this.booking.cost = this.invoiceTotal
-
+    
     //console.log(this.booking)
-
+    
     try {
       this._bookingService.makeBooking(this.booking).subscribe((response: any) => {
         console.log(response)
