@@ -17,6 +17,37 @@ namespace MatricRides.WebAPI.Controllers
             _bookingService = bookingService;
         }
 
+        [HttpPost("review-booking-application")]
+        public IActionResult ReviewBookingApplication([FromBody] ReviewApplicationDTO reviewModelDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = _bookingService.BookingReview(reviewModelDTO);
+
+            if(!result.isReviewed)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("get-booking/{id}")]
+        public IActionResult GetBooking(int id)
+        {
+            var result = _bookingService.GetBooking(id);
+
+            if (result == null)
+            {
+                return BadRequest("Could not get booking");
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost("make-booking")]
         public IActionResult MakeBooking(BookingDTO bookingModel)
         {

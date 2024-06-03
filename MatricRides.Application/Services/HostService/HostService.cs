@@ -1,4 +1,5 @@
-﻿using MatricRides.Application.Services.HttpService;
+﻿using MatricRides.Application.Services.BookingService;
+using MatricRides.Application.Services.HttpService;
 using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
@@ -16,11 +17,13 @@ namespace MatricRides.Application.Services.HostService
     {
         private readonly ApplicationDbContext _db;
         private readonly IHttpService _httpService;
+        private readonly IBookingService _bookingService;
 
-        public HostService(ApplicationDbContext db, IHttpService httpService)
+        public HostService(ApplicationDbContext db, IHttpService httpService, IBookingService bookingService)
         {
             _db = db;
             _httpService = httpService;
+            _bookingService = bookingService;
         }
 
         // update host
@@ -153,11 +156,16 @@ namespace MatricRides.Application.Services.HostService
                 };
             }
 
+            var carId = host.Cars[0].CarId;
+
+            var bookings = _bookingService.GetBookingsByCarId(carId);
+
             return new HostApprovalResponse
             {
                 Message = "Host found",
                 IsSuccess = true,
-                hostObj = host
+                hostObj = host,
+                Bookings = bookings
             };
         }
 
@@ -191,5 +199,6 @@ namespace MatricRides.Application.Services.HostService
                 hostObj = host
             };
         }
+
     }
 }

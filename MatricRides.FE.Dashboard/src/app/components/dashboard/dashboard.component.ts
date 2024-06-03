@@ -10,6 +10,7 @@ import { LandingComponent as carTable} from '../pages/users/landing/landing.comp
 import { UsersCardComponent } from './cards/users-card/users-card.component';
 import { HostCarsCardComponent } from './cards/host-cars-card/host-cars-card.component';
 import { TopNavComponent } from '../pages/host-profile/top-nav/top-nav.component';
+import { HostCarApplicationsCardComponent } from './cards/host-car-applications-card/host-car-applications-card.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,7 @@ import { TopNavComponent } from '../pages/host-profile/top-nav/top-nav.component
     LandingComponent,
     UsersCardComponent,
     carTable,
-    
+    HostCarApplicationsCardComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

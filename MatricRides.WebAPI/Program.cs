@@ -65,7 +65,9 @@ builder.Services.AddCors(options => options.AddPolicy(name: "AllowLocalhost",
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IHostApprovalService, HostApprovalService>();
 builder.Services.AddScoped<IHostService, HostService>();
+//builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped(provider => new Lazy<ICarService>(provider.GetService<ICarService>));
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IContactUsService, ContactUsService>();
 builder.Services.AddScoped<IBookingService, BookingService>();

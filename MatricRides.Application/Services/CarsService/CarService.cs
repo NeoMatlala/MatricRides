@@ -46,6 +46,25 @@ namespace MatricRides.Application.Services.CarsService
             return host;
         }
 
+        public string GetCarByID(int id)
+        {
+            if (id == 0)
+            {
+                return "ID can't be zero";
+            }
+
+            var car = _db.Cars.Find(id);
+
+            if (car == null)
+            {
+                return "Car doesn't exist";
+            }
+
+            var carName = $"{car.Year} {car.Make} {car.Model}";
+
+            return carName;
+        }
+
         // update car details including images
         public UpdateCarResponse UpdateCar(int id, UpdateCarDTO model, List<IFormFile>? carImages)
         {

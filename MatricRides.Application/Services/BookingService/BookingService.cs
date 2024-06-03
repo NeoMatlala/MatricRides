@@ -1,4 +1,5 @@
-﻿using MatricRides.Application.Services.ClientService;
+﻿using MatricRides.Application.Services.CarsService;
+using MatricRides.Application.Services.ClientService;
 using MatricRides.Application.Services.HttpService;
 using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Enums;
@@ -10,22 +11,179 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MatricRides.Application.Services.BookingService
+namespace MatricRides.Application.Services.BookingService 
 {
     public class BookingService : IBookingService
     {
         private readonly ApplicationDbContext _db;
         private readonly IClientService _clientService;
         private readonly IHttpService _httpService;
+        private readonly Lazy<ICarService> _carService;
 
-        public BookingService(ApplicationDbContext db, IClientService clientService, IHttpService httpService)
+        public BookingService(ApplicationDbContext db, IClientService clientService, IHttpService httpService, Lazy<ICarService> carService)
         {
             _db = db;
             _clientService = clientService;
             _httpService = httpService;
+            _carService = carService;
         }
 
-        
+        public CarBookingResponseDTO? GetBooking(int id)
+        {
+            if(id == 0)
+            {
+                Console.WriteLine("ID cannot be 0");
+                return null;
+            }
+
+            var booking = _db.Bookings.Find(id);
+
+            if (booking == null)
+            {
+                Console.WriteLine("Booking does not exist");
+                return null;
+            }
+
+            var formatBooking = new CarBookingResponseDTO
+            {
+                BookingId = booking.BookingId,
+                CarName = _carService.Value.GetCarByID(booking.CarId),
+                Client = _clientService.GetClientViaId(booking.ClientId),
+                ClientIDNumber = booking.ClientIDNumber,
+                Cost = booking.Cost,
+                School = booking.School,
+                From = formatDate(booking.From),
+                Until = formatDate(booking.Until),
+                isPendingApproval = booking.isPendingApproval,
+                isDelivery = booking.isDelivery,
+                isPickup = booking.isPickup,
+                isDeclined = booking.isDeclined,
+                isApproved = booking.isApproved,
+                DeclinedReason = booking.DeclinedReason
+            };
+
+            return formatBooking;
+        }
+
+        public List<CarBookingResponseDTO> GetBookingsByCarId(int carId)
+        {
+            if ( carId == 0 )
+            {
+                Console.WriteLine("Invalid ID");
+                return null;
+            }
+
+            var bookings = _db.Bookings.Where(x => x.CarId == carId).ToList();
+            List<CarBookingResponseDTO> formattedBookings = new List<CarBookingResponseDTO>();
+
+            if (bookings == null)
+            {
+                Console.WriteLine("There are no bookings for that ID!");
+                return null;
+            }
+
+            foreach (var b in bookings)
+            {
+                var formatBookings = new CarBookingResponseDTO
+                {
+                    BookingId = b.BookingId,
+                    CarName = _carService.Value.GetCarByID(b.CarId),
+                    Client = _clientService.GetClientViaId(b.ClientId),
+                    ClientIDNumber = b.ClientIDNumber,
+                    Cost = b.Cost,
+                    School = b.School,
+                    From = formatDate(b.From),
+                    Until = formatDate(b.Until),
+                    isPendingApproval = b.isPendingApproval,
+                    isDelivery = b.isDelivery,
+                    isPickup = b.isPickup,
+                    isDeclined = b.isDeclined,
+                    isApproved = b.isApproved
+                };
+
+
+                formattedBookings.Add(formatBookings);
+            }
+
+            return formattedBookings;
+        }
+
+        private string formatDate(DateTime date)
+        {
+            string datePart = date.Date.ToString();
+            DateTime dateTime = DateTime.Parse(datePart);
+
+            string formattedDate = dateTime.ToString("yyyy/MM/dd");
+
+            TimeSpan time = date.TimeOfDay;
+
+            return $"{formattedDate} @ {time}";
+        }
+
+        //
+        public BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO)
+        {
+            // use bookingId to getBooking via method above
+            var booking = _db.Bookings.Find(reviewDTO.BookingId);
+
+            if (booking == null)
+            {
+                return new BookingReviewResponse
+                {
+                    isReviewed = false,
+                    reviewMessage = "Booking doesnt exist."
+                };
+            }
+
+            booking.isPendingApproval = false;
+            BookingReviewResponse response;
+            
+            if (reviewDTO.ReviewResponse == BookingReviewType.Accept) // accept send 1
+            {
+                booking.isApproved = true;
+                booking.isDeclined = false;
+
+                response = new BookingReviewResponse
+                {
+                    isReviewed = true,
+                    isAccepted = true,
+                    reviewMessage = "Booking has been successfully accepted."
+                };
+
+            }
+            else if(reviewDTO.ReviewResponse == BookingReviewType.Decline) // decline, send 2
+            {
+                booking.isDeclined = true;
+                booking.isApproved = false;
+
+                if (!string.IsNullOrWhiteSpace(reviewDTO.DeclineReason))
+                {
+                    booking.DeclinedReason = reviewDTO.DeclineReason;
+                }
+
+                response = new BookingReviewResponse
+                {
+                    isReviewed = true,
+                    isDeclined = true,
+                    reviewMessage = "Booking has been successfully declined."
+                };
+            } 
+            else
+            {
+                response = new BookingReviewResponse
+                {
+                    isReviewed = false,
+                    reviewMessage = "Invalid review response."
+                };
+            }
+
+            _db.Bookings.Update(booking);
+            _db.SaveChanges();
+
+            return response;
+        }
+
+
         public BookingResponse CreateBooking(BookingDTO bookingModel)
         {
             
