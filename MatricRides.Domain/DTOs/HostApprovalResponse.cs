@@ -19,5 +19,7 @@ namespace MatricRides.Domain.DTOs
         public IEnumerable<string> Errors { get; set; }
 
         public Host? hostObj { get; set; }
+
+        public List<CarBookingResponseDTO>? Bookings { get; set; }
     }
 }

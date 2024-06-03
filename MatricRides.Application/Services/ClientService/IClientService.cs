@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatricRides.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace MatricRides.Application.Services.ClientService
     public interface IClientService
     {
         int GetClientIdViaEmail(string email);
+        Client GetClientViaId(int clientId);
     }
 }

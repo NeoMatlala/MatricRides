@@ -1,4 +1,5 @@
-﻿using MatricRides.Infrastructure.Data;
+﻿using MatricRides.Domain.Models;
+using MatricRides.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,25 @@ namespace MatricRides.Application.Services.ClientService
             }
 
             return client.ClientId;
+        }
+
+        public Client GetClientViaId(int clientId)
+        {
+            if ( clientId == 0)
+            {
+                Console.WriteLine("ID cannot be null");
+                return null;
+            }
+
+            var client = _db.Clients.Find(clientId);
+
+            if( client == null )
+            {
+                Console.WriteLine("Client doesnt exist");
+                return null;
+            }
+
+            return client;
         }
     }
 }

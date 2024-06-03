@@ -14,6 +14,7 @@ import { LandingComponent as AdminUsersLanding } from './components/pages/users/
 import { LandingComponent as HostCarLanding } from './components/pages/car/landing/landing.component';
 import { LandingComponent as AdminMessagesLanding } from './components/pages/messages/landing/landing.component';
 import { ProfilePageComponent } from './components/pages/host-profile/profile-page/profile-page.component';
+import { BookingsLandingComponent } from './components/pages/host-bookings/bookings-landing/bookings-landing.component';
 
 export const routes: Routes = [
     {path: '', redirectTo:'/login', pathMatch: 'full'},
@@ -35,6 +36,7 @@ export const routes: Routes = [
             {path: 'review-application/:id', component: ReviewComponent},
             {path: 'view-car/:make', component: ViewCarComponent},
             {path: 'cars', component: AdminCarsLanding},
+            {path: 'bookings', component: BookingsLandingComponent},
             {path: 'messages', component: AdminMessagesLanding},
             {path: 'view-car-details/:id', component: AdminViewCar},
             {path: 'users', component: AdminUsersLanding},

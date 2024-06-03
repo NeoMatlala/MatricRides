@@ -14,5 +14,7 @@ namespace MatricRides.Application.Services.CarsService
         List<Car> GetCars();
         UpdateCarResponse UpdateCar(int id, UpdateCarDTO model, List<IFormFile>? carImages);
         HostApprovalResponse GetCarInfo(int id);
+
+        string GetCarByID(int id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MatricRides.Domain.DTOs;
+using MatricRides.Domain.Enums;
 using MatricRides.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,11 @@ namespace MatricRides.Application.Services.BookingService
     public interface IBookingService
     {
         BookingResponse CreateBooking(BookingDTO booking);
+
+        List<CarBookingResponseDTO> GetBookingsByCarId(int carId);
+
+        CarBookingResponseDTO? GetBooking(int id);
+
+        BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO);
     }
 }
