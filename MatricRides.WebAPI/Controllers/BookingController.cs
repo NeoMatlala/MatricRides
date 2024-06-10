@@ -1,4 +1,5 @@
 ﻿using MatricRides.Application.Services.BookingService;
+using MatricRides.Application.Services.StripeService;
 using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +12,27 @@ namespace MatricRides.WebAPI.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
-
-        public BookingController(IBookingService bookingService)
+        private readonly IStripeService _stripeService;
+        public BookingController(IBookingService bookingService, IStripeService stripeService)
         {
             _bookingService = bookingService;
+            _stripeService = stripeService;
+        }
+
+        [HttpGet("get-stripe")]
+        public async Task<IActionResult> GetProductsAsync()
+        {
+            var products = await _stripeService.GetProductsAsync(3);
+
+            return Ok(products);
+        }
+
+        [HttpPost("get-stripe-sessionId")]
+        public async Task<IActionResult> PayCarAsync([FromBody] StripeSessionDTO stripeSessionDto)
+        {
+            var result = await _stripeService.CreateCheckoutSession(stripeSessionDto);
+
+            return Ok(result);
         }
 
         [HttpPost("review-booking-application")]
