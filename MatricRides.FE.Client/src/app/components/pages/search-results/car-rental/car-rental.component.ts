@@ -304,16 +304,50 @@ export class CarRentalComponent {
     }
    }
 
+   getSessionId() {
+    const sessionIdDto = {
+      cost : Number(this.invoiceTotal!).toFixed(2),
+      clientEmail: localStorage.getItem('userEmail')!,
+      carId: this.booking.carId
+    }
+
+    this.booking.clientEmail = localStorage.getItem('userEmail')!
+    this.booking.carId = this.host.cars[0].carId
+
+    this.booking.cost = this.invoiceTotal
+
+    console.log(this.booking)
+    localStorage.setItem('bookingObject', JSON.stringify(this.booking))
+
+    this._bookingService.getSessionId(sessionIdDto)
+
+    // try {
+    //   this._bookingService.getSessionId(sessionIdDto).subscribe((response: any) => {
+    //     console.log(response)
+
+    //     if(response.sessionExists) {
+    //       //this.bookCar(response.sessionId)
+    //     }
+    //   })
+    // } catch (error) {
+    //   console.log("FE: Error making booking - ", error)
+    // }
+   }
+
   bookCar() {
     this.booking.clientEmail = localStorage.getItem('userEmail')!
     this.booking.carId = this.host.cars[0].carId
 
     this.booking.cost = this.invoiceTotal
     
+    
     //console.log(this.booking)
     
     try {
+      //console.log(sessionIdDto)
+      // Make call to stripe checkout service
       this._bookingService.makeBooking(this.booking).subscribe((response: any) => {
+      //this._bookingService.getSessionId(sessionIdDto).subscribe((response: any) => {
         console.log(response)
 
         if(response.isBooked) {

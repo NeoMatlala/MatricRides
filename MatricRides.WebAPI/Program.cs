@@ -6,6 +6,7 @@ using MatricRides.Application.Services.HostApprovalService;
 using MatricRides.Application.Services.HostService;
 using MatricRides.Application.Services.HttpService;
 using MatricRides.Application.Services.SearchService;
+using MatricRides.Application.Services.StripeService;
 using MatricRides.Application.Services.UserService;
 using MatricRides.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -72,6 +73,7 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IContactUsService, ContactUsService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IStripeService, StripeService>();
 
 //builder.Services.AddHttpClient<HostApprovalService>();
 builder.Services.AddHttpClient<IHttpService, HttpService>();

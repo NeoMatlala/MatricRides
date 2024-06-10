@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Stripe.net" Version="44.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MatricRides.Domain\MatricRides.Domain.csproj" />
     <ProjectReference Include="..\MatricRides.Infrastructure\MatricRides.Infrastructure.csproj" />
   </ItemGroup>

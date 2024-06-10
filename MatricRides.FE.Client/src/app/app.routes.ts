@@ -5,6 +5,8 @@ import { HostApplicationFormComponent } from './components/pages/host-applicatio
 import { ResultsComponent } from './components/pages/search-results/results/results.component';
 import { CarRentalComponent } from './components/pages/search-results/car-rental/car-rental.component';
 import { ContactUsComponent } from './components/pages/contact-us/contact-us.component';
+import { PaymentSuccessComponent } from './components/pages/stripe/payment-success/payment-success.component';
+import { PaymentCancelComponent } from './components/pages/stripe/payment-cancel/payment-cancel.component';
 
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -13,4 +15,6 @@ export const routes: Routes = [
     {path: 'host-application-form', component: HostApplicationFormComponent},
     {path: 'results/:city', component: ResultsComponent},
     {path: 'car-rental/:make/:id/:year', component: CarRentalComponent},
+    {path: 'stripe-success', component: PaymentSuccessComponent},
+    {path: 'stripe-cancel', component: PaymentCancelComponent},
 ];
