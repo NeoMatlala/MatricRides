@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatricRides.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,17 +19,9 @@ namespace MatricRides.Domain.Models
         public string School { get; set; }
         public DateTime From { get; set; }
         public DateTime Until { get; set; }
-        //public bool isPendingApproval { get; set; } = true;
+        public DateTime DateBooked { get; set; }
         public bool isDelivery { get; set; } = false;
         public bool isPickup { get; set; } = false;
-        //public bool isApproved { get; set; } = false;
-        //public bool isDeclined { get; set; } = false;
-        //public string? DeclinedReason { get; set; }
-
-        //public Car Car { get; set; }
-
-        // navigation to addresses
-        // navigation to clients
-        // navigation to payments
+        public StatusType Status { get; set; } = StatusType.Booked;
     }
 }

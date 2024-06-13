@@ -54,12 +54,10 @@ namespace MatricRides.Application.Services.BookingService
                 School = booking.School,
                 From = formatDate(booking.From),
                 Until = formatDate(booking.Until),
-                //isPendingApproval = booking.isPendingApproval,
+                DateBooked = booking.DateBooked,
+                Status = booking.Status.ToString(),
                 isDelivery = booking.isDelivery,
                 isPickup = booking.isPickup,
-                //isDeclined = booking.isDeclined,
-                //isApproved = booking.isApproved,
-                //DeclinedReason = booking.DeclinedReason
             };
 
             return formatBooking;
@@ -94,11 +92,10 @@ namespace MatricRides.Application.Services.BookingService
                     School = b.School,
                     From = formatDate(b.From),
                     Until = formatDate(b.Until),
-                    //isPendingApproval = b.isPendingApproval,
                     isDelivery = b.isDelivery,
                     isPickup = b.isPickup,
-                    //isDeclined = b.isDeclined,
-                    //isApproved = b.isApproved
+                    Status = b.Status.ToString(),
+                    DateBooked = b.DateBooked,
                 };
 
 
@@ -198,7 +195,8 @@ namespace MatricRides.Application.Services.BookingService
                 Cost = bookingModel.Cost,
                 School = bookingModel.School,
                 From = bookingModel.From,
-                Until = bookingModel.Until
+                Until = bookingModel.Until,
+                DateBooked = DateTime.Now
             };
 
             if (bookingModel.DeliveryAddress != null)
