@@ -35,23 +35,23 @@ namespace MatricRides.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("review-booking-application")]
-        public IActionResult ReviewBookingApplication([FromBody] ReviewApplicationDTO reviewModelDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost("review-booking-application")]
+        //public IActionResult ReviewBookingApplication([FromBody] ReviewApplicationDTO reviewModelDTO)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var result = _bookingService.BookingReview(reviewModelDTO);
+        //    var result = _bookingService.BookingReview(reviewModelDTO);
 
-            if(!result.isReviewed)
-            {
-                return BadRequest(result);
-            }
+        //    if(!result.isReviewed)
+        //    {
+        //        return BadRequest(result);
+        //    }
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         [HttpGet("get-booking/{id}")]
         public IActionResult GetBooking(int id)

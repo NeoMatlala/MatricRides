@@ -54,12 +54,12 @@ namespace MatricRides.Application.Services.BookingService
                 School = booking.School,
                 From = formatDate(booking.From),
                 Until = formatDate(booking.Until),
-                isPendingApproval = booking.isPendingApproval,
+                //isPendingApproval = booking.isPendingApproval,
                 isDelivery = booking.isDelivery,
                 isPickup = booking.isPickup,
-                isDeclined = booking.isDeclined,
-                isApproved = booking.isApproved,
-                DeclinedReason = booking.DeclinedReason
+                //isDeclined = booking.isDeclined,
+                //isApproved = booking.isApproved,
+                //DeclinedReason = booking.DeclinedReason
             };
 
             return formatBooking;
@@ -94,11 +94,11 @@ namespace MatricRides.Application.Services.BookingService
                     School = b.School,
                     From = formatDate(b.From),
                     Until = formatDate(b.Until),
-                    isPendingApproval = b.isPendingApproval,
+                    //isPendingApproval = b.isPendingApproval,
                     isDelivery = b.isDelivery,
                     isPickup = b.isPickup,
-                    isDeclined = b.isDeclined,
-                    isApproved = b.isApproved
+                    //isDeclined = b.isDeclined,
+                    //isApproved = b.isApproved
                 };
 
 
@@ -121,67 +121,67 @@ namespace MatricRides.Application.Services.BookingService
         }
 
         //
-        public BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO)
-        {
-            // use bookingId to getBooking via method above
-            var booking = _db.Bookings.Find(reviewDTO.BookingId);
+        //public BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO)
+        //{
+        //    // use bookingId to getBooking via method above
+        //    var booking = _db.Bookings.Find(reviewDTO.BookingId);
 
-            if (booking == null)
-            {
-                return new BookingReviewResponse
-                {
-                    isReviewed = false,
-                    reviewMessage = "Booking doesnt exist."
-                };
-            }
+        //    if (booking == null)
+        //    {
+        //        return new BookingReviewResponse
+        //        {
+        //            isReviewed = false,
+        //            reviewMessage = "Booking doesnt exist."
+        //        };
+        //    }
 
-            booking.isPendingApproval = false;
-            BookingReviewResponse response;
+        //    //booking.isPendingApproval = false;
+        //    BookingReviewResponse response;
             
-            if (reviewDTO.ReviewResponse == BookingReviewType.Accept) // accept send 1
-            {
-                booking.isApproved = true;
-                booking.isDeclined = false;
+        //    if (reviewDTO.ReviewResponse == BookingReviewType.Accept) // accept send 1
+        //    {
+        //        //booking.isApproved = true;
+        //        //booking.isDeclined = false;
 
-                response = new BookingReviewResponse
-                {
-                    isReviewed = true,
-                    isAccepted = true,
-                    reviewMessage = "Booking has been successfully accepted."
-                };
+        //        response = new BookingReviewResponse
+        //        {
+        //            isReviewed = true,
+        //            isAccepted = true,
+        //            reviewMessage = "Booking has been successfully accepted."
+        //        };
 
-            }
-            else if(reviewDTO.ReviewResponse == BookingReviewType.Decline) // decline, send 2
-            {
-                booking.isDeclined = true;
-                booking.isApproved = false;
+        //    }
+        //    else if(reviewDTO.ReviewResponse == BookingReviewType.Decline) // decline, send 2
+        //    {
+        //        //booking.isDeclined = true;
+        //        //booking.isApproved = false;
 
-                if (!string.IsNullOrWhiteSpace(reviewDTO.DeclineReason))
-                {
-                    booking.DeclinedReason = reviewDTO.DeclineReason;
-                }
+        //        if (!string.IsNullOrWhiteSpace(reviewDTO.DeclineReason))
+        //        {
+        //            booking.DeclinedReason = reviewDTO.DeclineReason;
+        //        }
 
-                response = new BookingReviewResponse
-                {
-                    isReviewed = true,
-                    isDeclined = true,
-                    reviewMessage = "Booking has been successfully declined."
-                };
-            } 
-            else
-            {
-                response = new BookingReviewResponse
-                {
-                    isReviewed = false,
-                    reviewMessage = "Invalid review response."
-                };
-            }
+        //        response = new BookingReviewResponse
+        //        {
+        //            isReviewed = true,
+        //            isDeclined = true,
+        //            reviewMessage = "Booking has been successfully declined."
+        //        };
+        //    } 
+        //    else
+        //    {
+        //        response = new BookingReviewResponse
+        //        {
+        //            isReviewed = false,
+        //            reviewMessage = "Invalid review response."
+        //        };
+        //    }
 
-            _db.Bookings.Update(booking);
-            _db.SaveChanges();
+        //    _db.Bookings.Update(booking);
+        //    _db.SaveChanges();
 
-            return response;
-        }
+        //    return response;
+        //}
 
 
         public BookingResponse CreateBooking(BookingDTO bookingModel)
