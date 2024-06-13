@@ -44,9 +44,9 @@
                        R {{booking.cost}}
                     </td>
                     <td class="px-6 py-4">
-                        <span *ngIf="booking.isPendingApproval" class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Pending</span>
-                        <span *ngIf="booking.isApproved" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Accepted</span>
-                        <span *ngIf="booking.isDeclined" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Declined</span>
+                        <span *ngIf="booking.status == 'Booked'" class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Booked</span>
+                        <span *ngIf="booking.status == 'InProgress'" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">In Progress</span>
+                        <span *ngIf="booking.status == 'Complete'" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Complete</span>
                     </td>
                     <td class="px-6 py-4">
                         <a (click)="viewBooking(booking.bookingId)" class="text-blue-600 hover:cursor-pointer hover:underline">View</a>
