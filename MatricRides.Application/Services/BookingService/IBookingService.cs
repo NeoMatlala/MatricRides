@@ -17,6 +17,6 @@ namespace MatricRides.Application.Services.BookingService
 
         CarBookingResponseDTO? GetBooking(int id);
 
-        BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO);
+        //BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO);
     }
 }
