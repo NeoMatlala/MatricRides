@@ -8,6 +8,7 @@ using MatricRides.Domain.DTOs;
 using MatricRides.Domain.Models;
 using MatricRides.Application.Services.HostService;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace MatricRides.Application.Services.CarsService
 {
@@ -34,6 +35,16 @@ namespace MatricRides.Application.Services.CarsService
             }
 
             return cars;
+        }
+
+        public Car GetCarByCarId(int carId)
+        {
+            if(carId == 0)
+            {
+                return null;
+            }
+
+            return _db.Cars.Include(c => c.Images).FirstOrDefault(x => x.CarId == carId);
         }
 
         // get host from car hostId property

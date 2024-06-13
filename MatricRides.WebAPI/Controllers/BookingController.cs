@@ -19,6 +19,24 @@ namespace MatricRides.WebAPI.Controllers
             _stripeService = stripeService;
         }
 
+        [HttpGet("get-client-bookings/{clientEmail}")]
+        public IActionResult GetClientBookings(string clientEmail)
+        {
+            if(string.IsNullOrWhiteSpace(clientEmail))
+            {
+                return BadRequest("email cannot be empty");
+            }
+
+            var results = _bookingService.GetBookingsByClientId(clientEmail);
+
+            if ( results == null)
+            {
+                return BadRequest(results);
+            }
+
+            return Ok(results);
+        }
+
         [HttpGet("get-stripe")]
         public async Task<IActionResult> GetProductsAsync()
         {
@@ -34,24 +52,6 @@ namespace MatricRides.WebAPI.Controllers
 
             return Ok(result);
         }
-
-        //[HttpPost("review-booking-application")]
-        //public IActionResult ReviewBookingApplication([FromBody] ReviewApplicationDTO reviewModelDTO)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var result = _bookingService.BookingReview(reviewModelDTO);
-
-        //    if(!result.isReviewed)
-        //    {
-        //        return BadRequest(result);
-        //    }
-
-        //    return Ok(result);
-        //}
 
         [HttpGet("get-booking/{id}")]
         public IActionResult GetBooking(int id)

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { BookingService } from '../../../../services/booking/booking.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-payment-success',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './payment-success.component.html',
   styleUrl: './payment-success.component.css'
 })

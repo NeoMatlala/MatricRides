@@ -7,6 +7,7 @@ import { CarRentalComponent } from './components/pages/search-results/car-rental
 import { ContactUsComponent } from './components/pages/contact-us/contact-us.component';
 import { PaymentSuccessComponent } from './components/pages/stripe/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './components/pages/stripe/payment-cancel/payment-cancel.component';
+import { MyBookingsComponent } from './components/pages/bookings/my-bookings/my-bookings.component';
 
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
@@ -17,4 +18,5 @@ export const routes: Routes = [
     {path: 'car-rental/:make/:id/:year', component: CarRentalComponent},
     {path: 'stripe-success', component: PaymentSuccessComponent},
     {path: 'stripe-cancel', component: PaymentCancelComponent},
+    {path: 'my-bookings', component: MyBookingsComponent},
 ];

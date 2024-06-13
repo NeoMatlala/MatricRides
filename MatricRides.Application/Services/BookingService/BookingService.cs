@@ -117,68 +117,49 @@ namespace MatricRides.Application.Services.BookingService
             return $"{formattedDate} @ {time}";
         }
 
-        //
-        //public BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO)
-        //{
-        //    // use bookingId to getBooking via method above
-        //    var booking = _db.Bookings.Find(reviewDTO.BookingId);
+        public List<ClientBookingsDTO> GetBookingsByClientId(string clientEmail)
+        {
+            // get email, get ID from a client service that returns clientId
 
-        //    if (booking == null)
-        //    {
-        //        return new BookingReviewResponse
-        //        {
-        //            isReviewed = false,
-        //            reviewMessage = "Booking doesnt exist."
-        //        };
-        //    }
+            int clientId = _clientService.GetClientIdViaEmail(clientEmail);
 
-        //    //booking.isPendingApproval = false;
-        //    BookingReviewResponse response;
-            
-        //    if (reviewDTO.ReviewResponse == BookingReviewType.Accept) // accept send 1
-        //    {
-        //        //booking.isApproved = true;
-        //        //booking.isDeclined = false;
 
-        //        response = new BookingReviewResponse
-        //        {
-        //            isReviewed = true,
-        //            isAccepted = true,
-        //            reviewMessage = "Booking has been successfully accepted."
-        //        };
+            if (clientId == 0)
+            {
+                return null;
+            }
 
-        //    }
-        //    else if(reviewDTO.ReviewResponse == BookingReviewType.Decline) // decline, send 2
-        //    {
-        //        //booking.isDeclined = true;
-        //        //booking.isApproved = false;
+            var bookings = _db.Bookings.Where(x => x.ClientId == clientId).ToList();
 
-        //        if (!string.IsNullOrWhiteSpace(reviewDTO.DeclineReason))
-        //        {
-        //            booking.DeclinedReason = reviewDTO.DeclineReason;
-        //        }
+            if (bookings == null)
+            {
+                return null;
+            }
 
-        //        response = new BookingReviewResponse
-        //        {
-        //            isReviewed = true,
-        //            isDeclined = true,
-        //            reviewMessage = "Booking has been successfully declined."
-        //        };
-        //    } 
-        //    else
-        //    {
-        //        response = new BookingReviewResponse
-        //        {
-        //            isReviewed = false,
-        //            reviewMessage = "Invalid review response."
-        //        };
-        //    }
+            List<ClientBookingsDTO> formattedBookings = new List<ClientBookingsDTO>();
 
-        //    _db.Bookings.Update(booking);
-        //    _db.SaveChanges();
+            foreach (var booking in bookings)
+            {
+                // use carID to get Car images, car name, car doors
+                //var bookedCar = _carService.
 
-        //    return response;
-        //}
+                var formattedBooking = new ClientBookingsDTO
+                {
+                    BookingId = booking.BookingId,
+                    From = formatDate(booking.From),
+                    Until = formatDate(booking.Until),
+                    Status = booking.Status.ToString(),
+                    Car = _carService.Value.GetCarByCarId(booking.CarId),
+                    isDelivery = booking.isDelivery,
+                    isPickup = booking.isPickup
+                };
+
+                formattedBookings.Add(formattedBooking);
+            }
+
+            return formattedBookings;
+
+        }
 
 
         public BookingResponse CreateBooking(BookingDTO bookingModel)

@@ -40,5 +40,9 @@ export class BookingService {
   public makeBooking(booking: BookingDto): Observable<BookingDto> {
     return this.http.post<BookingDto>("https://localhost:7101/api/Booking/make-booking", booking)
   }
+
+  public getCLientBookings(clientEmail: string): Observable<any> {
+    return this.http.get(`https://localhost:7101/api/Booking/get-client-bookings/${clientEmail}`)
+  }
 }
 
