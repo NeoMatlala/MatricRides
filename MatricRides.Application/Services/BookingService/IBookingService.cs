@@ -19,6 +19,6 @@ namespace MatricRides.Application.Services.BookingService
 
         List<ClientBookingsDTO> GetBookingsByClientId(string clientEmail);
 
-        //BookingReviewResponse BookingReview(ReviewApplicationDTO reviewDTO);
+        DeleteBookingResponse DeleteBooking(int id);
     }
 }

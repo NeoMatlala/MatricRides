@@ -23,5 +23,6 @@ namespace MatricRides.Domain.Models
         public bool isDelivery { get; set; } = false;
         public bool isPickup { get; set; } = false;
         public StatusType Status { get; set; } = StatusType.Booked;
+        public bool isDeleted { get; set; } = false;
     }
 }

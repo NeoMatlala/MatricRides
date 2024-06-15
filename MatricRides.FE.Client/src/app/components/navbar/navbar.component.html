@@ -80,7 +80,7 @@
 
             <ul *ngIf="menuToggle" class="flex flex-col items-start justify-start w-56 z-50 rounded-md gap-6 font-medium bg-white absolute top-10 right-10 p-5">
                 <li>
-                    <a class="underline underline-offset-4">My bookings</a>             
+                    <a routerLink="my-bookings" class="underline underline-offset-4">My bookings</a>             
                 </li>
                 <li>
                     <a (click)="logout()" class="underline underline-offset-4">logout</a>             

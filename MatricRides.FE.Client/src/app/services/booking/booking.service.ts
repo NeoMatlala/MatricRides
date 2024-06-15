@@ -44,5 +44,9 @@ export class BookingService {
   public getCLientBookings(clientEmail: string): Observable<any> {
     return this.http.get(`https://localhost:7101/api/Booking/get-client-bookings/${clientEmail}`)
   }
+
+  public deleteBooking(bookingId: number): Observable<any> {
+    return this.http.delete(`https://localhost:7101/api/Booking/delete-booking/${bookingId}`)
+  }
 }
 

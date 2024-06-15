@@ -19,6 +19,19 @@ namespace MatricRides.WebAPI.Controllers
             _stripeService = stripeService;
         }
 
+        [HttpDelete("delete-booking/{id}")]
+        public IActionResult DeleteBooking(int id)
+        {
+            var result = _bookingService.DeleteBooking(id);
+
+            if (!result.isDeleted)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet("get-client-bookings/{clientEmail}")]
         public IActionResult GetClientBookings(string clientEmail)
         {
