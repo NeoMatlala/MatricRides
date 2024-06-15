@@ -22,10 +22,12 @@
                             <p *ngIf="booking.isPickup" class="text-slate-400 text-sm">Pickup</p>
                             <p *ngIf="booking.isDelivery" class="text-slate-400 text-sm">Delivery</p>
                         </div>
-                        <p class="text-red-300 hover:text-red-600 hover:underline hover:cursor-pointer text-sm">Cancel</p>
+                        <p (click)="showModal(booking.bookingId)" class="text-red-300 hover:text-red-600 hover:underline hover:cursor-pointer text-sm">Cancel Booking</p>
                     </div>
                 </div>
             </a>
         </div>
     </div>
 </div>
+
+<app-delete-booking [bookingId]="this.bookingId"></app-delete-booking>

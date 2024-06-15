@@ -7,6 +7,7 @@ using MatricRides.Domain.Models;
 using MatricRides.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,58 @@ namespace MatricRides.Application.Services.BookingService
             _clientService = clientService;
             _httpService = httpService;
             _carService = carService;
+        }
+
+        public DeleteBookingResponse DeleteBooking(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return new DeleteBookingResponse
+                    {
+                        isDeleted = false,
+                        Message = "Id cannot be 0"
+                    };
+                }
+
+                var booking = _db.Bookings.Find(id);
+
+                if (booking == null)
+                {
+                    return new DeleteBookingResponse
+                    {
+                        isDeleted = false,
+                        Message = "Booking could not be found"
+                    };
+                }
+
+                booking.isDeleted = true;
+                _db.Bookings.Update(booking);
+                _db.SaveChanges();
+
+                return new DeleteBookingResponse
+                {
+                    isDeleted = true,
+                    Message = "Booking successfully deleted."
+                };
+            }
+            catch (DbException dbEx)
+            {
+                return new DeleteBookingResponse
+                {
+                    isDeleted = false,
+                    Message = $"Database error occured while trying to delete booking: {dbEx}"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new DeleteBookingResponse
+                {
+                    isDeleted = false,
+                    Message = $"Unknown error occured while trying to delete booking: {ex}"
+                };
+            }
         }
 
         public CarBookingResponseDTO? GetBooking(int id)
@@ -129,7 +182,7 @@ namespace MatricRides.Application.Services.BookingService
                 return null;
             }
 
-            var bookings = _db.Bookings.Where(x => x.ClientId == clientId).ToList();
+            var bookings = _db.Bookings.Where(x => x.ClientId == clientId).Where(d => d.isDeleted == false).ToList();
 
             if (bookings == null)
             {
