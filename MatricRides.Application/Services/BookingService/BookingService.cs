@@ -81,6 +81,47 @@ namespace MatricRides.Application.Services.BookingService
             }
         }
 
+        public List<CarBookingResponseDTO> BookingsStatusFilter(BookingsFilterDTO filterModel)
+        {
+            // get carID
+            var bookingsForCarId = GetBookingsByCarId(filterModel.CarId);
+            List<CarBookingResponseDTO> filteredBookings = new List<CarBookingResponseDTO>();
+
+            
+            if (filterModel.Status == "complete")
+            {
+                foreach (var booking in bookingsForCarId)
+                {
+                    if (booking.Status == StatusType.Complete.ToString())
+                    {
+                        filteredBookings.Add(booking);
+                    }
+                }
+            }
+            else if (filterModel.Status == "booked")
+            {
+                foreach (var booking in bookingsForCarId)
+                {
+                    if (booking.Status == StatusType.Booked.ToString())
+                    {
+                        filteredBookings.Add(booking);
+                    }
+                }
+            }
+            else if (filterModel.Status == "in-progress")
+            {
+                foreach (var booking in bookingsForCarId)
+                {
+                    if (booking.Status == StatusType.InProgress.ToString())
+                    {
+                        filteredBookings.Add(booking);
+                    }
+                }
+            }
+
+            return filteredBookings;
+        }
+
         public CarBookingResponseDTO? GetBooking(int id)
         {
             if(id == 0)
@@ -114,6 +155,62 @@ namespace MatricRides.Application.Services.BookingService
             };
 
             return formatBooking;
+        }
+
+        public List<CarBookingResponseDTO> CompleteBookingsFilters(int carId)
+        {
+            // get bookings for carID
+            var bookingsForCarId = GetBookingsByCarId(carId);
+
+            List<CarBookingResponseDTO> filteredBookings = new List<CarBookingResponseDTO>();
+
+            
+            foreach(var b in bookingsForCarId) {
+                if (b.Status == StatusType.Complete.ToString())
+                {
+                    filteredBookings.Add(b);
+                }
+            }
+
+            return filteredBookings;
+        }
+
+        public List<CarBookingResponseDTO> BookedBookingsFilters(int carId)
+        {
+            // get bookings for carID
+            var bookingsForCarId = GetBookingsByCarId(carId);
+
+            List<CarBookingResponseDTO> filteredBookings = new List<CarBookingResponseDTO>();
+
+
+            foreach (var b in bookingsForCarId)
+            {
+                if (b.Status == StatusType.Booked.ToString())
+                {
+                    filteredBookings.Add(b);
+                }
+            }
+
+            return filteredBookings;
+        }
+
+        public List<CarBookingResponseDTO> InProgressBookingsFilter(int carId)
+        {
+            // get bookings for carID
+            var bookingsForCarId = GetBookingsByCarId(carId);
+
+            List<CarBookingResponseDTO> filteredBookings = new List<CarBookingResponseDTO>();
+
+
+            foreach (var b in bookingsForCarId)
+            {
+                if (b.Status == StatusType.InProgress.ToString())
+                {
+                    filteredBookings.Add(b);
+                }
+            }
+
+            return filteredBookings;
         }
 
         public List<CarBookingResponseDTO> GetBookingsByCarId(int carId)
