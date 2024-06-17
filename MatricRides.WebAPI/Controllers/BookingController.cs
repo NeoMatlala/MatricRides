@@ -19,6 +19,34 @@ namespace MatricRides.WebAPI.Controllers
             _stripeService = stripeService;
         }
 
+        [HttpPost("bookings-filter")]
+        public IActionResult GetBookedBookings([FromBody] BookingsFilterDTO filterModel)
+        {
+            var result = _bookingService.BookingsStatusFilter(filterModel);
+            return Ok(result);
+        }
+
+        //[HttpGet("booked-bookings")]
+        //public IActionResult GetBookedBookings(int carId)
+        //{
+        //    var result = _bookingService.BookedBookingsFilters(carId);
+        //    return Ok(result);
+        //}
+
+        //[HttpGet("in-progress-bookings")]
+        //public IActionResult GetInProgressBookings(int carId)
+        //{
+        //    var result = _bookingService.InProgressBookingsFilter(carId);
+        //    return Ok(result);
+        //}
+
+        //[HttpGet("complete-bookings")]
+        //public IActionResult GetCompleteBookings(int carId)
+        //{
+        //    var result = _bookingService.CompleteBookingsFilters(carId);
+        //    return Ok(result);
+        //}
+
         [HttpDelete("delete-booking/{id}")]
         public IActionResult DeleteBooking(int id)
         {

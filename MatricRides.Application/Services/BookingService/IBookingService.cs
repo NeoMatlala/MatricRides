@@ -20,5 +20,11 @@ namespace MatricRides.Application.Services.BookingService
         List<ClientBookingsDTO> GetBookingsByClientId(string clientEmail);
 
         DeleteBookingResponse DeleteBooking(int id);
+
+        List<CarBookingResponseDTO> BookingsStatusFilter(BookingsFilterDTO filterModel);
+
+        List<CarBookingResponseDTO> CompleteBookingsFilters(int carId);
+        List<CarBookingResponseDTO> BookedBookingsFilters(int carId);
+        List<CarBookingResponseDTO> InProgressBookingsFilter(int carId);
     }
 }
