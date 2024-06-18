@@ -255,7 +255,7 @@ namespace MatricRides.Application.Services.BookingService
             return formattedBookings;
         }
 
-        private string formatDate(DateTime date)
+        public string formatDate(DateTime date)
         {
             string datePart = date.Date.ToString();
             DateTime dateTime = DateTime.Parse(datePart);

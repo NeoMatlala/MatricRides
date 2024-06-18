@@ -1,4 +1,5 @@
-﻿using MatricRides.Domain.DTOs;
+﻿using MatricRides.Application.Services.BookingService;
+using MatricRides.Domain.DTOs;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 using System;
@@ -13,10 +14,12 @@ namespace MatricRides.Application.Services.StripeService
     {
         private readonly IConfiguration _configuration;
         private readonly string _apiKey;
+        private readonly IBookingService _bookingsService;
 
-        public StripeService(IConfiguration configuration)
+        public StripeService(IConfiguration configuration, IBookingService bookingsService)
         {
             _apiKey = configuration.GetSection("Stripe:SecretKey").Value;
+            _bookingsService = bookingsService;
         }
 
         public async Task<StripeList<Product>> GetProductsAsync(int limit)
@@ -30,6 +33,7 @@ namespace MatricRides.Application.Services.StripeService
 
         public async Task<SessionIDResponse> CreateCheckoutSession(StripeSessionDTO stripeSessionDto)
         {
+
             StripeConfiguration.ApiKey = _apiKey;
 
             var amount = stripeSessionDto.Cost * 100;
@@ -49,7 +53,7 @@ namespace MatricRides.Application.Services.StripeService
                             Currency = "zar",
                             ProductData = new Stripe.Checkout.SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = $"Car booking for {stripeSessionDto.CarId}"
+                                Name = $"MatricRides Payment for {stripeSessionDto.CarName}, from {_bookingsService.formatDate(stripeSessionDto.FromDate)} until {_bookingsService.formatDate(stripeSessionDto.UntilDate)}"
                             },
                             UnitAmount = (long)amount
                         },
