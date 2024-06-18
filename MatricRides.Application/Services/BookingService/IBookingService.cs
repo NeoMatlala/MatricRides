@@ -26,5 +26,7 @@ namespace MatricRides.Application.Services.BookingService
         List<CarBookingResponseDTO> CompleteBookingsFilters(int carId);
         List<CarBookingResponseDTO> BookedBookingsFilters(int carId);
         List<CarBookingResponseDTO> InProgressBookingsFilter(int carId);
+
+        string formatDate(DateTime date);
     }
 }

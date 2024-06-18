@@ -308,30 +308,18 @@ export class CarRentalComponent {
     const sessionIdDto = {
       cost : Number(this.invoiceTotal!).toFixed(2),
       clientEmail: localStorage.getItem('userEmail')!,
-      carId: this.booking.carId
+      carName: `${this.host.cars[0].year} ${this.host.cars[0].make} ${this.host.cars[0].model}`,
+      fromDate: this.booking.from,
+      untilDate: this.booking.until
     }
 
     this.booking.clientEmail = localStorage.getItem('userEmail')!
     this.booking.carId = this.host.cars[0].carId
 
     this.booking.cost = this.invoiceTotal
-
-    console.log(this.booking)
     localStorage.setItem('bookingObject', JSON.stringify(this.booking))
 
     this._bookingService.getSessionId(sessionIdDto)
-
-    // try {
-    //   this._bookingService.getSessionId(sessionIdDto).subscribe((response: any) => {
-    //     console.log(response)
-
-    //     if(response.sessionExists) {
-    //       //this.bookCar(response.sessionId)
-    //     }
-    //   })
-    // } catch (error) {
-    //   console.log("FE: Error making booking - ", error)
-    // }
    }
 
   bookCar() {

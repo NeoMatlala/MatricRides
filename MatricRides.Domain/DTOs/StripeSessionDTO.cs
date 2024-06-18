@@ -10,6 +10,8 @@ namespace MatricRides.Domain.DTOs
     {
         public double Cost { get; set; }
         public string ClientEmail { get; set; }
-        public int CarId { get; set; }
+        public string CarName { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime UntilDate { get; set; }
     }
 }
