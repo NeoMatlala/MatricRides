@@ -279,7 +279,11 @@ namespace MatricRides.Application.Services.BookingService
                 return null;
             }
 
-            var bookings = _db.Bookings.Where(x => x.ClientId == clientId).Where(d => d.isDeleted == false).ToList();
+            var bookings = _db.Bookings
+                .Where(x => x.ClientId == clientId)
+                .Where(d => d.isDeleted == false)
+                .OrderByDescending(x => x.BookingId)
+                .ToList();
 
             if (bookings == null)
             {
