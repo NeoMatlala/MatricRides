@@ -1,8 +1,8 @@
-<div class="max-w-7xl mx-auto my-10">
+<div class="max-w-7xl mx-auto my-10 px-3 md:px-0">
     <p class="text-xl font-medium mb-5">Car details</p>
 
     <form class="mx-auto border-t pt-5" (ngSubmit)="submitHostApplication()" enctype="multipart/form-data">
-        <div class="grid grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
             <!-- <app-search-car-address ></app-search-car-address> -->
             <div>
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Car Address</label>
@@ -34,7 +34,7 @@
                 
             </div>
         </div>
-        <div class="grid grid-cols-3 gap-5 mt-5">
+        <div class="grid md:grid-cols-3 grid-cols-1 gap-5 mt-5">
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image1">Upload image</label>
                 <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image1_help" name="image1" (change)="onFileSelected($event, 'image1')" accept="image/*" id="image1" type="file">
@@ -48,10 +48,10 @@
                 <input name="image3" (change)="onFileSelected($event, 'image3')" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image3_help" id="image3" type="file">
             </div>
         </div>
-        <div class="mt-5 flex justify-start items-center gap-2 h-44" *ngIf="image1 || image2 || image3">
-            <img [src]="image1Url" class="h-full object-cover w-1/4" *ngIf="image1">
-            <img [src]="image2Url" class="h-full w-1/4 object-cover" *ngIf="image2">
-            <img [src]="image3Url" class="h-full w-1/4 object-cover" *ngIf="image3">
+        <div class="mt-5 flex flex-col md:flex-row justify-start items-center gap-2 h-44" *ngIf="image1 || image2 || image3">
+            <img [src]="image1Url" class="h-full object-cover w-full md:w-1/4" *ngIf="image1">
+            <img [src]="image2Url" class="h-full w-full md:w-1/4 object-cover" *ngIf="image2">
+            <img [src]="image3Url" class="h-full w-full md:w-1/4 object-cover" *ngIf="image3">
         </div>
         
         <div class="mt-5">
@@ -66,7 +66,7 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div >
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                 <input [(ngModel)]="host.name" type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Lepara" required />
