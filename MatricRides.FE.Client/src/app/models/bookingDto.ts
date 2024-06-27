@@ -6,7 +6,7 @@ export class BookingDto {
     clientIDNumber?: string | undefined
     cost?: string | undefined
     school?: string | undefined
-    from?: Date | undefined
-    until?: Date | undefined
+    from?: any | undefined
+    until?: any | undefined
     deliveryAddress?: string | undefined
 }

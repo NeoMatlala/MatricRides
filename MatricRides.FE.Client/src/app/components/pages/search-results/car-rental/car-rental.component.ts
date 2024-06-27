@@ -305,18 +305,26 @@ export class CarRentalComponent {
    }
 
    getSessionId() {
+    const fromDate = new Date(this.booking.from!)
+    const isoFromDate = new Date(fromDate.getTime() - (fromDate.getTimezoneOffset() * 60000)).toISOString()
+    const untilDate = new Date(this.booking.until!)
+    const isoUntilDate = new Date(untilDate.getTime() - (untilDate.getTimezoneOffset() * 60000)).toISOString()
+
     const sessionIdDto = {
       cost : Number(this.invoiceTotal!).toFixed(2),
       clientEmail: localStorage.getItem('userEmail')!,
       carName: `${this.host.cars[0].year} ${this.host.cars[0].make} ${this.host.cars[0].model}`,
-      fromDate: this.booking.from,
-      untilDate: this.booking.until
+      fromDate: isoFromDate,
+      untilDate: isoUntilDate
     }
 
-    this.booking.clientEmail = localStorage.getItem('userEmail')!
-    this.booking.carId = this.host.cars[0].carId
+    this.booking.clientEmail = localStorage.getItem('userEmail')! 
+    this.booking.carId = this.host.cars[0].carId 
 
     this.booking.cost = this.invoiceTotal
+    this.booking.from = isoFromDate
+    this.booking.until = isoUntilDate
+
     localStorage.setItem('bookingObject', JSON.stringify(this.booking))
 
     this._bookingService.getSessionId(sessionIdDto)

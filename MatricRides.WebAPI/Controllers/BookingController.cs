@@ -89,6 +89,7 @@ namespace MatricRides.WebAPI.Controllers
         [HttpPost("get-stripe-sessionId")]
         public async Task<IActionResult> PayCarAsync([FromBody] StripeSessionDTO stripeSessionDto)
         {
+
             var result = await _stripeService.CreateCheckoutSession(stripeSessionDto);
 
             return Ok(result);
