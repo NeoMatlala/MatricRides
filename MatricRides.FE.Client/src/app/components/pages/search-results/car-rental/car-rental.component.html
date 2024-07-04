@@ -160,7 +160,8 @@
                   inputId="calendar-24h" 
                   [(ngModel)]="booking.from" 
                   [showTime]="true"
-                  name="bookingFrom"/>
+                  name="bookingFrom"
+                  [minDate]="minimumDate"/>
                   <small class="text-slate-500 block text-xs font-light mt-2">DD/MM/YYY HH:MM</small>
                   <small *ngIf="showFromError" class="text-red-600 block text-xs mt-2">Please add from date & time</small>
               </div>
@@ -171,7 +172,8 @@
                     [(ngModel)]="booking.until"
                     [showTime]="true"
                     name="bookingUntil"
-                    (ngModelChange)="onBookingUntilChange($event)"/>
+                    (ngModelChange)="onBookingUntilChange($event)"
+                    [minDate]="minimumDate"/>
                     <small class="text-slate-500 block text-xs font-light mt-2">DD/MM/YYY HH:MM</small>
                     <small *ngIf="showUntilError" class="text-red-600 block text-xs mt-2">Please add until date & time</small>
               </div>  
