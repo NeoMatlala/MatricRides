@@ -39,6 +39,7 @@ export class CarRentalComponent {
   isDelivery: boolean = true
   totalCost: string | undefined
   hours: any = 0
+  minimumDate = new Date();
 
   editModalElement: HTMLElement | null = null;
   successModalElement: HTMLElement | null = null;
