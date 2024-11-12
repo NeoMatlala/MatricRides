@@ -44,3 +44,4 @@ Thumbs.db
 # environment variables
 /src/environment
 ../src/environment/*
+./src/environment/
